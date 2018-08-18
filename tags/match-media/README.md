@@ -23,7 +23,7 @@ Media queries directly in your Marko templates.
 # Installation
 
 ```console
-npm install @marko/match-media
+npm install @marko-tags/match-media
 ```
 
 # Example
