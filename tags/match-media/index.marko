@@ -1,16 +1,17 @@
 class {
   onCreate(input) {
     var queries = input["*"];
-    this.state = Object.keys(queries).reduce(function(state, name) {
-      state[name] = false;
-      return state;
+    this.matches = Object.keys(queries).reduce(function(matches, name) {
+      matches[name] = false;
+      return matches;
     }, {});
   }
 
   onRender() {
     if (!process.browser) return;
 
-    var state = this.state;
+    var component = this;
+    var matches = this.matches;
     var matchers = (this.matchers = this.matchers || {});
     var prevInput = this.prevInput;
     var input = (this.prevInput = this.input);
@@ -20,7 +21,7 @@ class {
       var prevQueries = prevInput["*"];
       Object.keys(prevQueries).forEach(function(name) {
         if (queries[name] === prevQueries[name]) return;
-        if (!(name in queries)) delete state[name];
+        if (!(name in queries)) delete matches[name];
         var matcher = matchers[name];
         delete matchers[name];
         matcher.removeListener(matcher.handler);
@@ -34,12 +35,13 @@ class {
       if (!matcher) {
         (matcher = matchers[name] = matchMedia(query)).addListener(
           (matcher.handler = function() {
-            state[name] = !state[name];
+            matches[name] = !matches[name];
+            component.forceUpdate();
           })
         );
       }
 
-      state[name] = matcher.matches;
+      matches[name] = matcher.matches;
     });
   }
 
@@ -52,4 +54,4 @@ class {
   }
 }
 
-<${input} ...state/>
+<${input} ...component.matches/>

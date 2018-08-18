@@ -7,6 +7,6 @@
   "exclude": [
     "tags/*/node_modules",
     "tags/**/test",
-    "*.marko.js"
+    "tags/**/*.marko.js"
   ]
 }
