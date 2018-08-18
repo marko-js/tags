@@ -1,7 +1,7 @@
 {
   "name": "@marko-tags/match-media",
   "description": "Media queries directly in your Marko templates.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Dylan Piercey <dpiercey@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [
