@@ -24,6 +24,8 @@
 
 ## Packages
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/marko-js/tags.svg)](https://greenkeeper.io/)
+
 - [match-media](https://github.com/marko-js/tags/blob/master/tags/match-media/README.md) -
   media queries directly in your Marko teplates.
 
