@@ -1,0 +1,12 @@
+{
+  "all": true,
+  "cache": true,
+  "include": [
+    "tags/**/*.{js,marko}"
+  ],
+  "exclude": [
+    "tags/*/node_modules",
+    "tags/**/test",
+    "*.marko.js"
+  ]
+}

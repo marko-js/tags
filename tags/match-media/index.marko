@@ -1,0 +1,55 @@
+class {
+  onCreate(input) {
+    var queries = input["*"];
+    this.state = Object.keys(queries).reduce(function(state, name) {
+      state[name] = false;
+      return state;
+    }, {});
+  }
+
+  onRender() {
+    if (!process.browser) return;
+
+    var state = this.state;
+    var matchers = (this.matchers = this.matchers || {});
+    var prevInput = this.prevInput;
+    var input = (this.prevInput = this.input);
+    var queries = input["*"];
+
+    if (prevInput) {
+      var prevQueries = prevInput["*"];
+      Object.keys(prevQueries).forEach(function(name) {
+        if (queries[name] === prevQueries[name]) return;
+        if (!(name in queries)) delete state[name];
+        var matcher = matchers[name];
+        delete matchers[name];
+        matcher.removeListener(matcher.handler);
+      });
+    }
+
+    Object.keys(queries).forEach(function(name) {
+      var matcher = matchers[name];
+      var query = queries[name];
+
+      if (!matcher) {
+        (matcher = matchers[name] = matchMedia(query)).addListener(
+          (matcher.handler = function() {
+            state[name] = !state[name];
+          })
+        );
+      }
+
+      state[name] = matcher.matches;
+    });
+  }
+
+  onDestroy() {
+    var matchers = this.matchers;
+    Object.keys(matchers).forEach(function(name) {
+      var matcher = matchers[name];
+      matcher.removeListener(matcher.handler);
+    });
+  }
+}
+
+<${input} ...state/>

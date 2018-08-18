@@ -1,0 +1,26 @@
+{
+  "name": "@marko-tags/match-media",
+  "description": "Media queries directly in your Marko templates.",
+  "version": "0.0.0",
+  "author": "Dylan Piercey <dpiercey@ebay.com>",
+  "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
+  "files": [
+    "index.marko",
+    "marko.json"
+  ],
+  "homepage": "https://github.com/marko-js/tags/tree/master/tags/mq",
+  "keywords": [
+    "marko",
+    "matchMedia",
+    "media",
+    "query"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "marko": "^4.12.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marko-js/tags/tree/master/tags/mq"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "devDependencies": {
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/config-conventional": "^7.0.1",
+    "@commitlint/config-lerna-scopes": "^7.0.0",
+    "codecov": "^3.0.4",
+    "cross-env": "^5.2.0",
+    "husky": "^0.14.3",
+    "lasso": "^3.2.3",
+    "lasso-marko": "^2.4.4",
+    "lerna": "^2.11.0",
+    "lint-staged": "^7.2.2",
+    "marko": "^4.12.5",
+    "marko-cli": "^4.0.2",
+    "marko-prettyprint": "^1.4.3",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "prettier": "^1.14.2",
+    "sinon": "^6.1.5"
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.marko": [
+      "marko-prettyprint",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "commitmsg": "echo $GIT_PARAMS && commitlint -e $GIT_PARAMS",
+    "format": "prettier \"**/*.{json,md,js}\" --write && marko-prettyprint ./tags",
+    "postinstall": "lerna bootstrap --hoist",
+    "precommit": "lint-staged",
+    "publish": "lerna publish --independent",
+    "test": "marko test",
+    "test:report": "cross-env NODE_ENV=test nyc --reporter=html npm test && open ./coverage/index.html",
+    "test:ci": "cross-env NODE_ENV=test nyc --reporter=text npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov"
+  }
+}
