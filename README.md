@@ -24,8 +24,8 @@
 
 ## Packages
 
-- [match-media](https://github.com/marko-js/tags/blob/master/tags/match-media/README.md) -
-  media queries directly in your Marko teplates.
+- [match-media](https://github.com/marko-js/tags/blob/master/tags/match-media) -
+  media queries directly in your Marko templates.
 
 ## Contributing
 
