@@ -26,6 +26,8 @@
 
 - [match-media](https://github.com/marko-js/tags/blob/master/tags/match-media) -
   media queries directly in your Marko templates.
+- [subscribe](https://github.com/marko-js/tags/blob/master/tags/subscribe) -
+  declarative event subscriptions component.
 
 ## Contributing
 

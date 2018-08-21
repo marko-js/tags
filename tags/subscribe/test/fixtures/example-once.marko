@@ -1,0 +1,9 @@
+class {
+  pong(a, b, c) {
+    this.input.emitter.emit("pong", a, b, c);
+  }
+}
+
+<if(input.playing)>
+  <subscribe to=input.emitter oncePing('pong')/>
+</if>

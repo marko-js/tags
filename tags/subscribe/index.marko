@@ -1,0 +1,30 @@
+class {
+  onMount() {
+    this.listen(this.input);
+  }
+
+  onInput(input) {
+    if (this.target && this.target !== input.to) {
+      this.onDestroy();
+      this.listen(input);
+    }
+  }
+
+  onDestroy() {
+    this.subscription.removeAllListeners();
+  }
+
+  listen(input) {
+    var target = (this.target = input.to);
+    var subscription = (this.subscription = this.subscribeTo(target));
+    var events = input.__events;
+    var len = events.length;
+    for (var i = 0; i < len; i += 2) {
+      var method = events[i];
+      var name = events[i + 1];
+      subscription[method](name, this.emit.bind(this, name));
+    }
+  }
+}
+
+<!--  -->
