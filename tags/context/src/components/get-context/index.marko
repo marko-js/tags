@@ -1,0 +1,25 @@
+import { getProvider } from '../../helpers'
+
+static const EMPTY_OBJECT = {};
+
+class {
+  onInput(input, out) {
+    var to = this.id;
+    var name = input.__from;
+    var provider = getProvider(out, name);
+
+    if (provider) {
+      this.state = provider.data;
+
+      if (process.browser) {
+        if (this.sub) this.sub.removeAllListeners();
+        this.sub = this.subscribeTo(provider.component).on(
+          "__change",
+          this.setState.bind(this)
+        );
+      }
+    }
+  }
+}
+
+<${input} ...state || EMPTY_OBJECT/>

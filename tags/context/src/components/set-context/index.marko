@@ -1,0 +1,19 @@
+import { pushProvider } from '../../helpers'
+
+class {
+  onMount() {
+    this.mounted = true;
+  }
+
+  onInput(input) {
+    if (this.mounted) {
+      this.emit("__change", input["*"]);
+    }
+  }
+}
+
+$ var data = input["*"];
+$ var name = input.__from;
+$ var popProvider = pushProvider(out, name, component, data);
+<${input}/>
+$ popProvider();

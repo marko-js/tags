@@ -1,0 +1,5 @@
+{
+  "template": "./index.marko",
+  "@__from": "string",
+  "@*": "expression"
+}
