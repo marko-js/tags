@@ -38,7 +38,7 @@
   "scripts": {
     "format": "prettier \"**/*.{json,md,js}\" --write && marko-prettyprint ./tags",
     "postinstall": "lerna bootstrap --hoist",
-    "publish": "lerna publish --independent",
+    "publish": "lerna publish",
     "test": "marko test",
     "test:report": "cross-env NODE_ENV=test nyc --reporter=html npm test && open ./coverage/index.html",
     "test:ci": "cross-env NODE_ENV=test nyc --reporter=text npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov"
