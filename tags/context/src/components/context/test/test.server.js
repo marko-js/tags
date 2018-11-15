@@ -54,4 +54,15 @@ describe("server", () => {
       assert.equal($("body").text(), '{"a":1,"b":2}');
     });
   });
+
+  it("renders with async tags", () => {
+    const template = require("./fixtures/async-component");
+    return template.render({ data: "[provided content]" }).then(html => {
+      const $ = cheerio.load(`<html><head></head><body>${html}</body></html>`);
+      assert.equal(
+        $("body").text(),
+        "[receiver async] [provided content][receiver nested] [provider content nested]"
+      );
+    });
+  });
 });
