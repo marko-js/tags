@@ -1,0 +1,27 @@
+{
+  "name": "@marko-tags/context",
+  "description": "Share data through arbitrarily deep Marko components.",
+  "version": "0.0.0",
+  "author": "Dylan Piercey <dpiercey@ebay.com>",
+  "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
+  "files": [
+    "src",
+    "marko.json"
+  ],
+  "homepage": "https://github.com/marko-js/tags/tree/master/tags/context",
+  "keywords": [
+    "marko",
+    "context"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "marko": "^4.13.10"
+  },
+  "dependencies": {
+    "lasso-modules-client": "^2.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marko-js/tags"
+  }
+}

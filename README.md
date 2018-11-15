@@ -28,6 +28,8 @@
   media queries directly in your Marko templates.
 - [subscribe](https://github.com/marko-js/tags/blob/master/tags/subscribe) -
   declarative event subscriptions component.
+- [context](https://github.com/marko-js/tags/blob/master/tags/context) -
+  share data through arbitrarily deep Marko components.
 
 ## Contributing
 

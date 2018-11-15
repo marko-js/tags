@@ -1,0 +1,26 @@
+import { pushProvider } from '../../helpers'
+
+class {
+  onMount() {
+    this.mounted = true;
+  }
+
+  onInput(input) {
+    var data = (this.data = {});
+    this.name = input.__from;
+
+    for (var key in input) {
+      if (key !== "__from" && key !== "renderBody") {
+        data[key] = input[key];
+      }
+    }
+
+    if (this.mounted) {
+      this.emit("__change", data);
+    }
+  }
+}
+
+$ var popProvider = pushProvider(out, component);
+<${input}/>
+$ popProvider();

@@ -1,0 +1,14 @@
+<context data=input.data>
+  <await(_ from Promise.resolve())>
+    <context({ data }) from=".">
+      [receiver async]
+      ${data}
+    </context>
+  </await>
+  <context data="[provider content nested]">
+    <context({ data }) from=".">
+      [receiver nested]
+      ${data}
+    </context>
+  </context>
+</context>
