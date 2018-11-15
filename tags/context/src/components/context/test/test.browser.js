@@ -214,4 +214,31 @@ describe("browser", () => {
       });
     });
   });
+
+  describe("rendered with spread attribute context data", () => {
+    const template = require("./fixtures/spread-context-data");
+    const container = document.createElement("div");
+    let component;
+
+    beforeEach(() => {
+      component = template
+        .renderSync({ a: 1, b: 2 })
+        .appendTo(container)
+        .getComponent();
+    });
+
+    afterEach(() => component.destroy());
+
+    it("renders properly", () => {
+      assert.equal(container.innerText, '{"a":1,"b":2}');
+    });
+
+    it("updates context on parent rerender", done => {
+      component.input = { a: 1, c: 3 };
+      component.once("update", () => {
+        assert.equal(container.innerText, '{"a":1,"c":3}');
+        done();
+      });
+    });
+  });
 });

@@ -1,7 +1,7 @@
 var CONTEXT_KEY = "__subtree_context__";
 var HAS_BOUND_ASYNC_CONTEXT = "__bound_async_subtree_context__";
 
-exports.pushProvider = function(out, name, component, data) {
+exports.pushProvider = function(out, component) {
   if (!out[HAS_BOUND_ASYNC_CONTEXT]) {
     out[HAS_BOUND_ASYNC_CONTEXT] = true;
     out.on("beginAsync", bindSubtreeContextOnBeginAsync);
@@ -9,10 +9,7 @@ exports.pushProvider = function(out, name, component, data) {
 
   var prevContext = out[CONTEXT_KEY];
   var nextContext = (out[CONTEXT_KEY] = Object.create(prevContext || {}));
-  nextContext[name] = {
-    data: data,
-    component: component
-  };
+  nextContext[component.name] = component;
 
   return function popProvider() {
     out[CONTEXT_KEY] = prevContext;

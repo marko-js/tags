@@ -46,4 +46,12 @@ describe("server", () => {
       );
     });
   });
+
+  it("renders with spread attributes on context", () => {
+    const template = require("./fixtures/spread-context-data");
+    return template.render({ a: 1, b: 2 }).then(html => {
+      const $ = cheerio.load(`<html><head></head><body>${html}</body></html>`);
+      assert.equal($("body").text(), '{"a":1,"b":2}');
+    });
+  });
 });
