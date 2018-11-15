@@ -11,7 +11,7 @@
     "lasso-marko": "^2.4.6",
     "lerna": "^3.4.3",
     "lint-staged": "^8.0.4",
-    "marko": "^4.13.9",
+    "marko": "^4.13.10",
     "marko-cli": "^4.0.6",
     "marko-prettyprint": "^1.5.1",
     "mocha": "^5.2.0",
