@@ -6,7 +6,7 @@
 
   <!-- Stability -->
   <a href="https://nodejs.org/api/documentation.html#documentation_stability_index">
-    <img src="https://img.shields.io/badge/stability-stable-green.svg" alt="API Stability"/>
+    <img src="https://img.shields.io/badge/stability-experimental-orange.svg" alt="API Stability"/>
   </a>
   <!-- NPM Version -->
   <a href="https://npmjs.org/package/@marko-tags/context">
