@@ -20,6 +20,8 @@
 
 Share data across arbitrarily nested Marko components.
 
+_Note: version 1.0.0 of this module requires Marko >= 4.14.20 as it uses the new [tag parameter syntax](https://markojs.com/docs/syntax#parameters)_
+
 # Installation
 
 ```console
@@ -42,7 +44,7 @@ npm install @marko-tags/context
 ### Receiving Context (from the above component)
 
 ```marko
-<context({ x }) from="some-component">
+<context|{ x }| from="some-component">
   <!-- Do whatever you need with the context here -->
 </context>
 ```
@@ -51,7 +53,7 @@ npm install @marko-tags/context
 
 The `from` attribute here is special and uses the same [discovery method](https://markojs.com/docs/custom-tags/#discovering-tags) as Marko uses when finding tags.
 
-`<context({ ... }) from="router">` is going to _receive_ context from an ancestor component called `router`.
+`<context|data| from="router">` is going to _receive_ context from an ancestor component called `router`.
 
 This method avoids namespace collisions without all of the additional boilerplate needed by solutions in other frameworks.
 
@@ -112,7 +114,7 @@ class {
   }
 }
 
-<context({ schema }) from="fancy-form">
+<context|{ schema }| from="fancy-form">
   <!-- Here we are receiving the schema from the closest ancestor fancy-form -->
 
   $ const test = schema[input.name];

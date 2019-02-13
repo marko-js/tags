@@ -3,7 +3,7 @@ const lassoClientTransport = require("lasso-modules-client/transport");
 module.exports = function(el, ctx) {
   const { builder } = ctx;
 
-  if (el.argument) {
+  if (el.params.length) {
     // Receive context tag.
     const fromAttr = el.getAttribute("from");
     let from = fromAttr && fromAttr.literalValue;
@@ -29,9 +29,8 @@ module.exports = function(el, ctx) {
     }
 
     const getNode = ctx.createNodeForEl("get-context", []);
-    getNode.params = builder.parseJavaScriptParams(el.argument);
-    getNode.params.forEach(param => getNode.addNestedVariable(param));
-    delete el.argument;
+    getNode.params = el.params;
+    delete el.params;
     getNode.setAttributeValue("__from", builder.literal(from));
     getNode.body = el.body;
     el.replaceWith(getNode);
