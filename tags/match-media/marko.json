@@ -1,7 +1,6 @@
 {
   "<match-media>": {
     "template": "./index.marko",
-    "featureFlags": ["params"],
     "@*": "expression"
   }
 }
