@@ -16,10 +16,7 @@ describe("browser", () => {
     afterEach(() => component.destroy());
 
     it("renders properly", () => {
-      assert.equal(
-        container.innerText,
-        "[receiver content] [provided content]"
-      );
+      assert.equal(container.innerText, "[receiver content][provided content]");
     });
 
     it("updates context on parent rerender", done => {
@@ -27,7 +24,7 @@ describe("browser", () => {
       component.once("update", () => {
         assert.equal(
           container.innerText,
-          "[receiver content] [provided content updated]"
+          "[receiver content][provided content updated]"
         );
         done();
       });
@@ -51,7 +48,7 @@ describe("browser", () => {
     it("renders properly", () => {
       assert.equal(
         container.innerText,
-        "[example content] [receiver content] [provided content]"
+        "[example content] [receiver content][provided content]"
       );
     });
 
@@ -61,7 +58,7 @@ describe("browser", () => {
         setTimeout(() => {
           assert.equal(
             container.innerText,
-            "[example content] [receiver content] [provided content updated]"
+            "[example content] [receiver content][provided content updated]"
           );
           done();
         });
@@ -74,7 +71,7 @@ describe("browser", () => {
       receiver.once("update", () => {
         assert.equal(
           container.innerText,
-          "[example content] [receiver content] [provided content]"
+          "[example content] [receiver content][provided content]"
         );
         done();
       });
@@ -98,7 +95,7 @@ describe("browser", () => {
     it("renders properly", () => {
       assert.equal(
         container.innerText,
-        "[example 1 content] [receiver 1 content] [provided content] [seperator][example 2 content] [receiver 2 content] [provided content]"
+        "[example 1 content] [receiver 1 content][provided content] [seperator][example 2 content] [receiver 2 content][provided content]"
       );
     });
 
@@ -108,7 +105,7 @@ describe("browser", () => {
         setTimeout(() => {
           assert.equal(
             container.innerText,
-            "[example 1 content] [receiver 1 content] [provided content updated] [seperator][example 2 content] [receiver 2 content] [provided content updated]"
+            "[example 1 content] [receiver 1 content][provided content updated] [seperator][example 2 content] [receiver 2 content][provided content updated]"
           );
           done();
         });
@@ -122,14 +119,14 @@ describe("browser", () => {
       receiver1.once("update", () => {
         assert.equal(
           container.innerText,
-          "[example 1 content] [receiver 1 content] [provided content] [seperator][example 2 content] [receiver 2 content] [provided content]"
+          "[example 1 content] [receiver 1 content][provided content] [seperator][example 2 content] [receiver 2 content][provided content]"
         );
 
         receiver2.forceUpdate();
         receiver2.once("update", () => {
           assert.equal(
             container.innerText,
-            "[example 1 content] [receiver 1 content] [provided content] [seperator][example 2 content] [receiver 2 content] [provided content]"
+            "[example 1 content] [receiver 1 content][provided content] [seperator][example 2 content] [receiver 2 content][provided content]"
           );
           done();
         });
@@ -154,7 +151,7 @@ describe("browser", () => {
     it("renders properly", () => {
       assert.equal(
         container.innerText,
-        "[example content] [receiver content] [provided content]"
+        "[example content] [receiver content][provided content]"
       );
     });
 
@@ -164,7 +161,7 @@ describe("browser", () => {
         setTimeout(() => {
           assert.equal(
             container.innerText,
-            "[example content] [receiver content] [provided content updated]"
+            "[example content] [receiver content][provided content updated]"
           );
           done();
         });
@@ -177,7 +174,7 @@ describe("browser", () => {
       middle.once("update", () => {
         assert.equal(
           container.innerText,
-          "[example content] [receiver content] [provided content]"
+          "[example content] [receiver content][provided content]"
         );
         done();
       });
@@ -193,7 +190,7 @@ describe("browser", () => {
         middle.once("update", () => {
           assert.equal(
             container.innerText,
-            "[example content] [receiver content] [provided content]"
+            "[example content] [receiver content][provided content]"
           );
           done();
         });
@@ -208,7 +205,7 @@ describe("browser", () => {
       receiver.once("update", () => {
         assert.equal(
           container.innerText,
-          "[example content] [receiver content] [provided content]"
+          "[example content] [receiver content][provided content]"
         );
         done();
       });

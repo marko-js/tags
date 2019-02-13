@@ -1,16 +1,18 @@
 {
-  "lerna": "2.11.0",
   "command": {
     "publish": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "message": "chore: publish"
     }
   },
   "packages": [
     "tags/*"
   ],
   "ignoreChanges": [
-    "**/test/**",
+    "**/package-lock.json",
+    "tags/*/test/**",
     "**/*.md"
   ],
   "version": "independent"
 }
+

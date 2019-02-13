@@ -6,7 +6,7 @@ describe("server", () => {
     const template = require("./fixtures/same-component");
     return template.render({ data: "[provided content]" }).then(html => {
       const $ = cheerio.load(`<html><head></head><body>${html}</body></html>`);
-      assert.equal($("body").text(), "[receiver content] [provided content]");
+      assert.equal($("body").text(), "[receiver content][provided content]");
     });
   });
 
@@ -16,7 +16,7 @@ describe("server", () => {
       const $ = cheerio.load(`<html><head></head><body>${html}</body></html>`);
       assert.equal(
         $("body").text(),
-        "[example content] [receiver content] [provided content]"
+        "[example content] [receiver content][provided content]"
       );
     });
   });
@@ -31,7 +31,7 @@ describe("server", () => {
         );
         assert.equal(
           $("body").text(),
-          "[example content] [receiver content] [provided content]"
+          "[example content] [receiver content][provided content]"
         );
       });
   });
@@ -42,7 +42,7 @@ describe("server", () => {
       const $ = cheerio.load(`<html><head></head><body>${html}</body></html>`);
       assert.equal(
         $("body").text(),
-        "[example 1 content] [receiver 1 content] [provided content] [seperator][example 2 content] [receiver 2 content] [provided content]"
+        "[example 1 content] [receiver 1 content][provided content] [seperator][example 2 content] [receiver 2 content][provided content]"
       );
     });
   });
@@ -61,7 +61,7 @@ describe("server", () => {
       const $ = cheerio.load(`<html><head></head><body>${html}</body></html>`);
       assert.equal(
         $("body").text(),
-        "[receiver async] [provided content][receiver nested] [provider content nested]"
+        "[receiver async][provided content][receiver nested][provider content nested]"
       );
     });
   });
