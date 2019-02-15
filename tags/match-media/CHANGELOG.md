@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.0.0...@marko-tags/match-media@1.1.0) (2019-02-15)
+
+
+### Features
+
+* **context:** add marko style event handlers ([#10](https://github.com/marko-js/tags/issues/10)) ([71baf4d](https://github.com/marko-js/tags/commit/71baf4d))
+
+
+
+
+
 # [1.0.0](https://github.com/marko-js/tags/compare/@marko-tags/match-media@0.1.2...@marko-tags/match-media@1.0.0) (2019-02-13)
 
 
