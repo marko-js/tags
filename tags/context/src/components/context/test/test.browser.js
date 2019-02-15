@@ -238,4 +238,50 @@ describe("browser", () => {
       });
     });
   });
+
+  describe("rendered with event handlers", () => {
+    const template = require("./fixtures/event-handler");
+    const container = document.createElement("div");
+    let component;
+
+    before(() => document.body.appendChild(container));
+
+    beforeEach(() => {
+      component = template
+        .renderSync({ data: "[provided content]" })
+        .appendTo(container)
+        .getComponent();
+    });
+
+    afterEach(() => component.destroy());
+    after(() => document.body.removeChild(container));
+
+    it("renders properly", () => {
+      assert.equal(container.innerText, "[receiver content][provided content]");
+    });
+
+    it("updates context on parent rerender", done => {
+      component.input = { data: "[provided content updated]" };
+      component.once("update", () => {
+        assert.equal(
+          container.innerText,
+          "[receiver content][provided content updated]"
+        );
+        done();
+      });
+    });
+
+    it("forwards events to the parent context", done => {
+      const btn = container.querySelector(".test-button");
+      btn.click();
+
+      setTimeout(() => {
+        btn.click();
+        setTimeout(() => {
+          assert.equal(component.callCount, 2);
+          done();
+        }, 100);
+      }, 100);
+    });
+  });
 });

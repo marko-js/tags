@@ -2,6 +2,8 @@ import { getProvider } from '../../helpers'
 
 static const EMPTY_OBJECT = {};
 
+static const noop = function() {};
+
 class {
   onInput(input, out) {
     var to = this.id;
@@ -10,6 +12,7 @@ class {
 
     if (provider) {
       this.state = provider.data;
+      this.emitToProvider = provider.emit && provider.emit.bind(provider);
 
       if (process.browser) {
         if (this.sub) this.sub.removeAllListeners();
@@ -23,4 +26,5 @@ class {
 }
 
 $ const attrs = state || EMPTY_OBJECT;
-<${input} ...attrs/>
+$ const emit = component.emitToProvider || noop;
+<${input}(attrs, emit)/>
