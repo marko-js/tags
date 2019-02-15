@@ -20,7 +20,7 @@
 
 Share data across arbitrarily nested Marko components.
 
-_Note: version 1.0.0 of this module requires Marko >= 4.14.20 as it uses the new [tag parameter syntax](https://markojs.com/docs/syntax#parameters)_
+_Note: version 1.0.0 of this module requires Marko >= 4.15 as it uses the new [tag parameter syntax](https://markojs.com/docs/syntax#parameters)_
 
 # Installation
 
@@ -32,20 +32,49 @@ npm install @marko-tags/context
 
 ### Providing context
 
-**some-component.marko**
+**coupon-provider.marko**
 
 ```marko
-<context x=1>
+<context coupon="ALL FREE!">
   <!-- All children can request the context attributes anywhere in the tree -->
-  <${input}/>
+  <nested-content/>
 </context>
 ```
 
 ### Receiving Context (from the above component)
 
+**somewhere-inside-coupon-provider.marko**
+
 ```marko
-<context|{ x }| from="some-component">
+<context|{ coupon }| from="coupon-provider">
   <!-- Do whatever you need with the context here -->
+  Active Coupon: ${coupon}.
+</context>
+```
+
+### Providing an event handler
+
+You can also use `context` to add event handlers that can be triggered lower in the tree.
+
+**user-form.marko**
+
+```marko
+<context email=input.user.email on-save("handleSave")>
+  <user-form-content/>
+</context>
+```
+
+### Emitting an event (to the above component)
+
+We can emit events to the above `on-save` handler by receiving and additional [tag parameter](https://markojs.com/docs/syntax/#parameters) that we'll call `emit`. This is a function that operates identically to [component.emit](https://markojs.com/docs/class-components/#emiteventname-args) but will trigger events on the requested context.
+
+**somewhere-inside-user-form.marko**
+
+```marko
+<context|{ email }, emit|>
+  <button on-click(emit, "save")>
+    Save data for ${email}
+  </button>
 </context>
 ```
 

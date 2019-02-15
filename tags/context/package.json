@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "marko": "^4.13.10"
+    "marko": "^4.15.0"
   },
   "dependencies": {
     "lasso-modules-client": "^2.0.5"

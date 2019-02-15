@@ -1,0 +1,15 @@
+class {
+  onCreate() {
+    this.callCount = 0;
+  }
+}
+
+<context
+  data=input.data
+  on-increment(function() {
+    component.callCount++;
+  })>
+  <context|{ data }, emit| from=".">
+    [receiver content]${data}<button.test-button on-click(emit, "increment")/>
+  </context>
+</context>

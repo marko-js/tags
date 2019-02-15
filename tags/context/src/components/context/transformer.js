@@ -28,17 +28,15 @@ module.exports = function(el, ctx) {
       );
     }
 
-    const getNode = ctx.createNodeForEl("get-context", []);
+    const getNode = ctx.createNodeForEl("get-context");
     getNode.params = el.params;
-    delete el.params;
     getNode.setAttributeValue("__from", builder.literal(from));
     getNode.body = el.body;
     el.replaceWith(getNode);
   } else {
     // Set context tag.
-    const attributes = el.getAttributes();
     const from = lassoClientTransport.getClientPath(ctx.filename);
-    setNode = ctx.createNodeForEl("set-context", attributes);
+    setNode = ctx.createNodeForEl("set-context", el.getAttributes());
     setNode.setAttributeValue("__from", builder.literal(from));
     setNode.body = el.body;
     el.replaceWith(setNode);
