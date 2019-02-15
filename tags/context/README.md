@@ -71,7 +71,7 @@ We can emit events to the above `on-save` handler by receiving and additional [t
 **somewhere-inside-user-form.marko**
 
 ```marko
-<context|{ email }, emit|>
+<context|{ email }, emit| from="user-form">
   <button on-click(emit, "save")>
     Save data for ${email}
   </button>
