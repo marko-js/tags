@@ -21,6 +21,6 @@ class {
   }
 }
 
-$ var popProvider = pushProvider(out, component);
+$ var popProvider = pushProvider(out, component, input.__topLevelComponentsChannel);
 <${input}/>
 $ popProvider();

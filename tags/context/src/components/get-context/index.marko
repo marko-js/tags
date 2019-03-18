@@ -8,7 +8,8 @@ class {
   onInput(input, out) {
     var to = this.id;
     var name = input.__from;
-    var provider = getProvider(out, name);
+    var channel = input.__topLevelComponentsChannel;
+    var provider = getProvider(out, name, channel);
 
     if (provider) {
       this.state = provider.data;
