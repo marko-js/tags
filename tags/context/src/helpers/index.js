@@ -8,7 +8,7 @@ exports.pushProvider = function(out, component) {
   }
 
   var prevContext = out[CONTEXT_KEY];
-  var nextContext = (out[CONTEXT_KEY] = Object.create(prevContext || {}));
+  var nextContext = (out[CONTEXT_KEY] = Object.create(prevContext || null));
   nextContext[component.name] = component;
 
   return function popProvider() {
@@ -17,7 +17,14 @@ exports.pushProvider = function(out, component) {
 };
 
 exports.getProvider = function(out, name) {
-  return out[CONTEXT_KEY][name];
+  var context = out[CONTEXT_KEY];
+  var provider = context && context[name];
+
+  if (!provider) {
+    throw new Error('Unable to find context provider for "' + name + '"');
+  }
+
+  return provider;
 };
 
 function bindSubtreeContextOnBeginAsync(event) {

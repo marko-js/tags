@@ -1,30 +1,35 @@
 import { getProvider } from '../../helpers'
 
-static const EMPTY_OBJECT = {};
-
-static const noop = function() {};
-
 class {
   onInput(input, out) {
     var to = this.id;
     var name = input.__from;
-    var provider = getProvider(out, name);
+    this.setProvider(getProvider(out, name, this));
+  }
 
-    if (provider) {
-      this.state = provider.data;
-      this.emitToProvider = provider.emit && provider.emit.bind(provider);
+  setProvider(provider) {
+    if (provider === this.provider) {
+      return;
+    }
 
-      if (process.browser) {
-        if (this.sub) this.sub.removeAllListeners();
-        this.sub = this.subscribeTo(provider).on(
-          "__change",
-          this.setState.bind(this)
-        );
+    this.provider = provider;
+
+    if (typeof window !== "undefined") {
+      if (this.sub) {
+        this.sub.removeAllListeners();
       }
+
+      this.sub = this.subscribeTo(provider).on(
+        "__change",
+        this.forceUpdate.bind(this)
+      );
+
+      this.emitToProvider = provider.emit.bind(provider);
     }
   }
 }
 
-$ const attrs = state || EMPTY_OBJECT;
-$ const emit = component.emitToProvider || noop;
-<${input}(attrs, emit)/>
+$ var provider = component.provider;
+$ var emit = component.emitToProvider;
+$ var attrs = provider.data;
+<${input.renderBody}(attrs, emit)/>

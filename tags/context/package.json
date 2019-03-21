@@ -13,6 +13,9 @@
     "marko",
     "context"
   ],
+  "browser": {
+    "./src/helpers/index.js": "./src/helpers/index-browser.js"
+  },
   "license": "MIT",
   "peerDependencies": {
     "marko": "^4.15.0"
