@@ -1,123 +1,113 @@
 const assert = require("assert");
+const sinon = require("sinon");
+const { render, cleanup } = require("@marko/testing-library");
 const EventEmitter = require("events").EventEmitter;
 const exampleOn = require("./fixtures/example-on");
 const exampleOnce = require("./fixtures/example-once");
 
 describe("browser", () => {
+  afterEach(cleanup);
+
   describe("subscribe on-*", () => {
-    it("delegates events from an emitter when subscribed", done => {
+    it("delegates events from an emitter when subscribed", async () => {
       const emitter = new EventEmitter();
-      const component = exampleOn
-        .renderSync({
-          playing: true,
-          emitter
-        })
-        .appendTo(document.body)
-        .getComponent();
-
-      emitter.once("pong", (...args) => {
-        assert.deepEqual(args, ["a", "b", "c"]);
-
-        component.once("update", () => {
-          emitter.once("pong", () => done(new Error("Should not emit event")));
-          emitter.emit("ping", "a", "b", "c");
-          setTimeout(() => {
-            component.once("destroy", () => done());
-            component.destroy();
-          }, 16);
-        });
-
-        component.input.playing = false;
-        component.forceUpdate();
+      const { rerender } = await render(exampleOn, {
+        playing: true,
+        emitter
       });
 
-      setTimeout(() => {
-        emitter.emit("ping", "a", "b", "c");
-      }, 0);
+      const pongSpy = sinon.spy();
+      emitter.on("pong", pongSpy);
+      emitter.emit("ping", "a", "b", "c");
+
+      assert.ok(pongSpy.calledOnce);
+      assert.ok(pongSpy.calledWith("a", "b", "c"));
+      pongSpy.resetHistory();
+
+      await rerender({
+        playing: false,
+        emitter
+      });
+
+      emitter.emit("ping", "a", "b", "c");
+      assert.ok(pongSpy.notCalled);
     });
 
-    it("stops delegating when destroyed", done => {
+    it("stops delegating when destroyed", async () => {
       const emitter = new EventEmitter();
-      const component = exampleOn
-        .renderSync({
-          playing: true,
-          emitter
-        })
-        .appendTo(document.body)
-        .getComponent();
 
-      emitter.once("pong", (...args) => {
-        assert.deepEqual(args, ["a", "b", "c"]);
-        emitter.once("pong", () => done(new Error("Should not emit event")));
-        component.once("destroy", () => {
-          setTimeout(() => {
-            emitter.emit("ping", "a", "b", "c");
-            setTimeout(() => done(), 16);
-          }, 0);
-        });
-        component.destroy();
+      await render(exampleOn, {
+        playing: true,
+        emitter
       });
 
-      setTimeout(() => {
-        emitter.emit("ping", "a", "b", "c");
-      }, 0);
+      const pongSpy = sinon.spy();
+      emitter.on("pong", pongSpy);
+      emitter.emit("ping", "a", "b", "c");
+
+      assert.ok(pongSpy.calledOnce);
+      assert.ok(pongSpy.calledWith("a", "b", "c"));
+      pongSpy.resetHistory();
+
+      cleanup();
+
+      emitter.emit("ping", "a", "b", "c");
+      assert.ok(pongSpy.notCalled);
     });
 
-    it("stops delegating when a new emitter is set", done => {
-      const emitter = new EventEmitter();
-      const component = exampleOn
-        .renderSync({
-          playing: true,
-          emitter
-        })
-        .appendTo(document.body)
-        .getComponent();
+    it("can swap emitters", async () => {
+      const emitter1 = new EventEmitter();
+      const emitter2 = new EventEmitter();
 
-      emitter.once("pong", (...args) => {
-        assert.deepEqual(args, ["a", "b", "c"]);
-        component.once("update", () => {
-          emitter.once("pong", () => done(new Error("Should not emit event")));
-          emitter.emit("ping", "a", "b", "c");
-          setTimeout(() => {
-            component.once("destroy", () => done());
-            component.destroy();
-          }, 16);
-        });
-        component.input.emitter = new EventEmitter();
-        component.forceUpdate();
+      const { rerender } = await render(exampleOn, {
+        playing: true,
+        emitter: emitter1
       });
 
-      setTimeout(() => {
-        emitter.emit("ping", "a", "b", "c");
-      }, 0);
+      const pongSpy1 = sinon.spy();
+      const pongSpy2 = sinon.spy();
+      emitter1.on("pong", pongSpy1);
+      emitter2.on("pong", pongSpy2);
+
+      emitter1.emit("ping", "a", "b", "c");
+
+      assert.ok(pongSpy1.calledOnce);
+      assert.ok(pongSpy1.calledWith("a", "b", "c"));
+      assert.ok(pongSpy2.notCalled);
+      pongSpy1.resetHistory();
+
+      await rerender({
+        playing: true,
+        emitter: emitter2
+      });
+
+      emitter2.emit("ping", "a", "b", "c");
+
+      assert.ok(pongSpy2.calledOnce);
+      assert.ok(pongSpy2.calledWith("a", "b", "c"));
+      assert.ok(pongSpy1.notCalled);
     });
   });
 
   describe("subscribe once-*", () => {
-    it("delegates events from an emitter when subscribed", done => {
+    it("delegates events from an emitter when subscribed", async () => {
       const emitter = new EventEmitter();
-      const component = exampleOnce
-        .renderSync({
-          playing: true,
-          emitter
-        })
-        .appendTo(document.body)
-        .getComponent();
 
-      emitter.once("pong", (...args) => {
-        assert.deepEqual(args, ["a", "b", "c"]);
-        emitter.once("pong", () => done(new Error("Should not emit event")));
-        emitter.emit("ping", "a", "b", "c");
-
-        setTimeout(() => {
-          component.once("destroy", () => done());
-          component.destroy();
-        }, 16);
+      await render(exampleOnce, {
+        playing: true,
+        emitter
       });
 
-      setTimeout(() => {
-        emitter.emit("ping", "a", "b", "c");
-      }, 0);
+      const pongSpy = sinon.spy();
+      emitter.on("pong", pongSpy);
+      emitter.emit("ping", "a", "b", "c");
+
+      assert.ok(pongSpy.calledOnce);
+      assert.ok(pongSpy.calledWith("a", "b", "c"));
+      pongSpy.resetHistory();
+
+      emitter.emit("ping", "a", "b", "c");
+      assert.ok(pongSpy.notCalled);
     });
   });
 });

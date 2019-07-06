@@ -3,6 +3,7 @@
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
     "@commitlint/config-lerna-scopes": "^8.0.0",
+    "@marko/testing-library": "^1.0.5",
     "cheerio": "^1.0.0-rc.2",
     "codecov": "^3.5.0",
     "cross-env": "^5.2.0",
