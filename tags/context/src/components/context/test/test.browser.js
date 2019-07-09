@@ -1,179 +1,141 @@
-const assert = require("assert");
+const { getComponentForEl } = require("marko/components");
+const { render, cleanup, fireEvent } = require("@marko/testing-library");
+const { expect, use } = require("chai");
+use(require("chai-dom"));
+
+afterEach(cleanup);
 
 describe("browser", () => {
   describe("rendered in the same component", () => {
     const template = require("./fixtures/same-component");
-    const container = document.createElement("div");
-    let component;
+    let container, rerender;
 
-    beforeEach(() => {
-      component = template
-        .renderSync({ data: "[provided content]" })
-        .appendTo(container)
-        .getComponent();
-    });
-
-    afterEach(() => component.destroy());
+    beforeEach(
+      async () =>
+        ({ container, rerender } = await render(template, {
+          data: "[provided content]"
+        }))
+    );
 
     it("renders properly", () => {
-      assert.equal(container.innerText, "[receiver content][provided content]");
+      expect(container).has.text("[receiver content][provided content]");
     });
 
-    it("updates context on parent rerender", done => {
-      component.input = { data: "[provided content updated]" };
-      component.once("update", () => {
-        assert.equal(
-          container.innerText,
-          "[receiver content][provided content updated]"
-        );
-        done();
-      });
+    it("updates context on parent rerender", async () => {
+      await rerender({ data: "[provided content updated]" });
+      expect(container).has.text(
+        "[receiver content][provided content updated]"
+      );
     });
   });
 
   describe("rendered in two separate components", () => {
     const template = require("./fixtures/external-components");
-    const container = document.createElement("div");
-    let component;
+    let container, rerender, component;
 
-    beforeEach(() => {
-      component = template
-        .renderSync({ data: "[provided content]" })
-        .appendTo(container)
-        .getComponent();
+    beforeEach(async () => {
+      ({ container, rerender, getByTestId } = await render(template, {
+        data: "[provided content]"
+      }));
+      component = getComponentForEl(getByTestId("root"));
     });
 
-    afterEach(() => component.destroy());
-
     it("renders properly", () => {
-      assert.equal(
-        container.innerText,
+      expect(container).has.text(
         "[example content] [receiver content][provided content]"
       );
     });
 
-    it("updates context on parent rerender", done => {
-      component.input = { data: "[provided content updated]" };
-      component.once("update", () => {
-        setTimeout(() => {
-          assert.equal(
-            container.innerText,
-            "[example content] [receiver content][provided content updated]"
-          );
-          done();
-        });
-      });
+    it("updates context on parent rerender", async () => {
+      await rerender({ data: "[provided content updated]" });
+      expect(container).has.text(
+        "[example content] [receiver content][provided content updated]"
+      );
     });
 
-    it("updates context on receiver rerender", done => {
+    it("updates context on receiver rerender", () => {
       const receiver = component.getComponent("receiver");
       receiver.forceUpdate();
-      receiver.once("update", () => {
-        assert.equal(
-          container.innerText,
-          "[example content] [receiver content][provided content]"
-        );
-        done();
-      });
+      receiver.update();
+      expect(container).has.text(
+        "[example content] [receiver content][provided content]"
+      );
     });
   });
 
   describe("rendered with multiple context components", () => {
     const template = require("./fixtures/multiple-context-components");
-    const container = document.createElement("div");
-    let component;
+    let container, rerender, component;
 
-    beforeEach(() => {
-      component = template
-        .renderSync({ data: "[provided content]" })
-        .appendTo(container)
-        .getComponent();
+    beforeEach(async () => {
+      ({ container, rerender, getByTestId } = await render(template, {
+        data: "[provided content]"
+      }));
+      component = getComponentForEl(getByTestId("root"));
     });
 
-    afterEach(() => component.destroy());
-
     it("renders properly", () => {
-      assert.equal(
-        container.innerText,
-        "[example 1 content] [receiver 1 content][provided content] [seperator][example 2 content] [receiver 2 content][provided content]"
+      expect(container).has.text(
+        "[example 1 content] [receiver 1 content][provided content] [seperator] [example 2 content] [receiver 2 content][provided content]"
       );
     });
 
-    it("updates context on parent rerender", done => {
-      component.input = { data: "[provided content updated]" };
-      component.once("update", () => {
-        setTimeout(() => {
-          assert.equal(
-            container.innerText,
-            "[example 1 content] [receiver 1 content][provided content updated] [seperator][example 2 content] [receiver 2 content][provided content updated]"
-          );
-          done();
-        });
-      });
+    it("updates context on parent rerender", async () => {
+      await rerender({ data: "[provided content updated]" });
+      expect(container).has.text(
+        "[example 1 content] [receiver 1 content][provided content updated] [seperator] [example 2 content] [receiver 2 content][provided content updated]"
+      );
     });
 
-    it("updates context on receiver rerenders", done => {
+    it("updates context on receiver rerender", () => {
       const receiver1 = component.getComponent("receiver1");
       const receiver2 = component.getComponent("receiver2");
       receiver1.forceUpdate();
-      receiver1.once("update", () => {
-        assert.equal(
-          container.innerText,
-          "[example 1 content] [receiver 1 content][provided content] [seperator][example 2 content] [receiver 2 content][provided content]"
-        );
+      receiver1.update();
+      expect(container).has.text(
+        container.innerText,
+        "[example 1 content] [receiver 1 content][provided content] [seperator] [example 2 content] [receiver 2 content][provided content]"
+      );
 
-        receiver2.forceUpdate();
-        receiver2.once("update", () => {
-          assert.equal(
-            container.innerText,
-            "[example 1 content] [receiver 1 content][provided content] [seperator][example 2 content] [receiver 2 content][provided content]"
-          );
-          done();
-        });
-      });
+      receiver2.forceUpdate();
+      receiver2.update();
+      expect(container).has.text(
+        container.innerText,
+        "[example 1 content] [receiver 1 content][provided content] [seperator] [example 2 content] [receiver 2 content][provided content]"
+      );
     });
   });
 
   describe("rendered in two distant components", () => {
     const template = require("./fixtures/distant-components");
-    const container = document.createElement("div");
-    let component;
+    let container, rerender, component;
 
-    beforeEach(() => {
-      component = template
-        .renderSync({ data: "[provided content]", show: true })
-        .appendTo(container)
-        .getComponent();
+    beforeEach(async () => {
+      ({ container, rerender, getByTestId } = await render(template, {
+        data: "[provided content]",
+        show: true
+      }));
+      component = getComponentForEl(getByTestId("root"));
     });
 
-    afterEach(() => component.destroy());
-
     it("renders properly", () => {
-      assert.equal(
-        container.innerText,
+      expect(container).has.text(
         "[example content] [receiver content][provided content]"
       );
     });
 
-    it("updates context on parent rerender", done => {
-      component.input = { data: "[provided content updated]", show: true };
-      component.once("update", () => {
-        setTimeout(() => {
-          assert.equal(
-            container.innerText,
-            "[example content] [receiver content][provided content updated]"
-          );
-          done();
-        });
-      });
+    it("updates context on parent rerender", async () => {
+      await rerender({ data: "[provided content updated]", show: true });
+      expect(container).has.text(
+        "[example content] [receiver content][provided content updated]"
+      );
     });
 
     it("updates context on middle rerender", done => {
       const middle = component.getComponent("middle");
       middle.forceUpdate();
       middle.once("update", () => {
-        assert.equal(
-          container.innerText,
+        expect(container).has.text(
           "[example content] [receiver content][provided content]"
         );
         done();
@@ -184,12 +146,11 @@ describe("browser", () => {
       const middle = component.getComponent("middle");
       middle.input = { show: false };
       middle.once("update", () => {
-        assert.equal(container.innerText.trim(), "[example content]");
+        expect(container).has.text("[example content] ");
 
         middle.input = { show: true };
         middle.once("update", () => {
-          assert.equal(
-            container.innerText,
+          expect(container).has.text(
             "[example content] [receiver content][provided content]"
           );
           done();
@@ -203,8 +164,7 @@ describe("browser", () => {
         .getComponent("receiver");
       receiver.forceUpdate();
       receiver.once("update", () => {
-        assert.equal(
-          container.innerText,
+        expect(container).has.text(
           "[example content] [receiver content][provided content]"
         );
         done();
@@ -214,74 +174,62 @@ describe("browser", () => {
 
   describe("rendered with spread attribute context data", () => {
     const template = require("./fixtures/spread-context-data");
-    const container = document.createElement("div");
-    let component;
+    let container, rerender;
 
-    beforeEach(() => {
-      component = template
-        .renderSync({ a: 1, b: 2 })
-        .appendTo(container)
-        .getComponent();
-    });
-
-    afterEach(() => component.destroy());
+    beforeEach(
+      async () =>
+        ({ container, rerender } = await render(template, { a: 1, b: 2 }))
+    );
 
     it("renders properly", () => {
-      assert.equal(container.innerText, '{"a":1,"b":2}');
+      expect(container).has.text('{"a":1,"b":2}');
     });
 
-    it("updates context on parent rerender", done => {
-      component.input = { a: 1, c: 3 };
-      component.once("update", () => {
-        assert.equal(container.innerText, '{"a":1,"c":3}');
-        done();
-      });
+    it("updates context on parent rerender", async () => {
+      await rerender({ a: 1, c: 3 });
+      expect(container).has.text('{"a":1,"c":3}');
     });
   });
 
   describe("rendered with event handlers", () => {
     const template = require("./fixtures/event-handler");
-    const container = document.createElement("div");
-    let component;
+    let container, rerender, getByText;
 
-    before(() => document.body.appendChild(container));
-
-    beforeEach(() => {
-      component = template
-        .renderSync({ data: "[provided content]" })
-        .appendTo(container)
-        .getComponent();
-    });
-
-    afterEach(() => component.destroy());
-    after(() => document.body.removeChild(container));
+    beforeEach(
+      async () =>
+        ({ container, rerender, getByText } = await render(template, {
+          data: "[provided content]"
+        }))
+    );
 
     it("renders properly", () => {
-      assert.equal(container.innerText, "[receiver content][provided content]");
+      expect(container).has.text(
+        "[receiver content][provided content]Increment Count: 0"
+      );
     });
 
-    it("updates context on parent rerender", done => {
-      component.input = { data: "[provided content updated]" };
-      component.once("update", () => {
-        assert.equal(
-          container.innerText,
-          "[receiver content][provided content updated]"
-        );
-        done();
-      });
+    it("updates context on parent rerender", async () => {
+      await rerender({ data: "[provided content updated]" });
+      expect(container).has.text(
+        "[receiver content][provided content updated]Increment Count: 0"
+      );
     });
 
-    it("forwards events to the parent context", done => {
-      const btn = container.querySelector(".test-button");
-      btn.click();
+    it("forwards events to the parent context", async () => {
+      const incrementButton = getByText("Increment");
+      fireEvent.click(incrementButton);
 
-      setTimeout(() => {
-        btn.click();
-        setTimeout(() => {
-          assert.equal(component.callCount, 2);
-          done();
-        }, 100);
-      }, 100);
+      await rerender({ data: "[provided content updated]" });
+      expect(container).has.text(
+        "[receiver content][provided content updated]Increment Count: 1"
+      );
+
+      fireEvent.click(incrementButton);
+      fireEvent.click(incrementButton);
+      await rerender({ data: "[provided content updated again]" });
+      expect(container).has.text(
+        "[receiver content][provided content updated again]Increment Count: 3"
+      );
     });
   });
 });

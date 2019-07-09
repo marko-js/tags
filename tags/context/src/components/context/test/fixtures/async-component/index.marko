@@ -1,8 +1,12 @@
-<context data=input.data>
-  <await(_ from Promise.resolve())>
-    <context|{ data }| from=".">[receiver async]${data}</context>
-  </await>
-  <context data="[provider content nested]">
-    <context|{ data }| from=".">[receiver nested]${data}</context>
+<div data-testid="root">
+  <context data=input.data>
+    <await(Promise.resolve())>
+      <@then>
+        <context|{ data }| from=".">[receiver async]${data}</context>
+      </@then>
+    </await>
+    <context data="[provider content nested]">
+      <context|{ data }| from=".">[receiver nested]${data}</context>
+    </context>
   </context>
-</context>
+</div>
