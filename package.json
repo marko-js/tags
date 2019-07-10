@@ -19,7 +19,8 @@
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
-    "sinon": "^7.3.2"
+    "sinon": "^7.3.2",
+    "sinon-chai": "^3.3.0"
   },
   "lint-staged": {
     "*.{js,json,md}": [

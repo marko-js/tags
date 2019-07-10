@@ -1,6 +1,9 @@
-const assert = require("assert");
 const sinon = require("sinon");
 const { render, cleanup } = require("@marko/testing-library");
+const { expect, use } = require("chai");
+use(require("chai-dom"));
+use(require("sinon-chai"));
+
 const EventEmitter = require("events").EventEmitter;
 const exampleOn = require("./fixtures/example-on");
 const exampleOnce = require("./fixtures/example-once");
@@ -20,8 +23,7 @@ describe("browser", () => {
       emitter.on("pong", pongSpy);
       emitter.emit("ping", "a", "b", "c");
 
-      assert.ok(pongSpy.calledOnce);
-      assert.ok(pongSpy.calledWith("a", "b", "c"));
+      expect(pongSpy).calledOnceWith("a", "b", "c");
       pongSpy.resetHistory();
 
       await rerender({
@@ -30,7 +32,7 @@ describe("browser", () => {
       });
 
       emitter.emit("ping", "a", "b", "c");
-      assert.ok(pongSpy.notCalled);
+      expect(pongSpy).not.called;
     });
 
     it("stops delegating when destroyed", async () => {
@@ -45,14 +47,13 @@ describe("browser", () => {
       emitter.on("pong", pongSpy);
       emitter.emit("ping", "a", "b", "c");
 
-      assert.ok(pongSpy.calledOnce);
-      assert.ok(pongSpy.calledWith("a", "b", "c"));
+      expect(pongSpy).calledOnceWith("a", "b", "c");
       pongSpy.resetHistory();
 
       cleanup();
 
       emitter.emit("ping", "a", "b", "c");
-      assert.ok(pongSpy.notCalled);
+      expect(pongSpy).not.called;
     });
 
     it("can swap emitters", async () => {
@@ -71,9 +72,8 @@ describe("browser", () => {
 
       emitter1.emit("ping", "a", "b", "c");
 
-      assert.ok(pongSpy1.calledOnce);
-      assert.ok(pongSpy1.calledWith("a", "b", "c"));
-      assert.ok(pongSpy2.notCalled);
+      expect(pongSpy1).calledOnceWith("a", "b", "c");
+      expect(pongSpy2).not.called;
       pongSpy1.resetHistory();
 
       await rerender({
@@ -83,9 +83,8 @@ describe("browser", () => {
 
       emitter2.emit("ping", "a", "b", "c");
 
-      assert.ok(pongSpy2.calledOnce);
-      assert.ok(pongSpy2.calledWith("a", "b", "c"));
-      assert.ok(pongSpy1.notCalled);
+      expect(pongSpy1).not.called;
+      expect(pongSpy2).calledOnceWith("a", "b", "c");
     });
   });
 
@@ -102,12 +101,11 @@ describe("browser", () => {
       emitter.on("pong", pongSpy);
       emitter.emit("ping", "a", "b", "c");
 
-      assert.ok(pongSpy.calledOnce);
-      assert.ok(pongSpy.calledWith("a", "b", "c"));
+      expect(pongSpy).calledOnceWith("a", "b", "c");
       pongSpy.resetHistory();
 
       emitter.emit("ping", "a", "b", "c");
-      assert.ok(pongSpy.notCalled);
+      expect(pongSpy).not.called;
     });
   });
 });

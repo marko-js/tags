@@ -1,5 +1,5 @@
-const assert = require("assert");
 const { render } = require("@marko/testing-library");
+const { expect } = require("chai");
 const template = require("../");
 
 describe("server", () => {
@@ -10,6 +10,8 @@ describe("server", () => {
       }
     });
 
-    assert.equal(container.children.length, 0);
+    expect(container)
+      .has.property("children")
+      .with.length(0);
   });
 });
