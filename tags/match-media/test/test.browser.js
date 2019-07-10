@@ -1,6 +1,7 @@
-const assert = require("assert");
 const sinon = require("sinon");
 const { render, cleanup } = require("@marko/testing-library");
+const { expect, use } = require("chai");
+use(require("sinon-chai"));
 const template = require("../");
 const SIZES = {
   desktop: "1025px",
@@ -41,37 +42,31 @@ describe("browser", () => {
   });
 
   it("matches current screen size (desktop) on mount", () => {
-    assert.ok(
-      renderBodySpy.calledWith(sinon.match.any, {
-        desktop: true,
-        tablet: false,
-        mobile: false
-      })
-    );
+    expect(renderBodySpy).calledOnceWith(sinon.match.any, {
+      desktop: true,
+      tablet: false,
+      mobile: false
+    });
   });
 
   it("updates to match tablet", async () => {
     frame.style.width = SIZES.tablet;
     await waitFrames(frame.contentWindow, 10);
-    assert.ok(
-      renderBodySpy.calledWith(sinon.match.any, {
-        desktop: false,
-        tablet: true,
-        mobile: false
-      })
-    );
+    expect(renderBodySpy).calledWith(sinon.match.any, {
+      desktop: false,
+      tablet: true,
+      mobile: false
+    });
   });
 
   it("updates to match mobile", async () => {
     frame.style.width = SIZES.mobile;
     await waitFrames(frame.contentWindow, 10);
-    assert.ok(
-      renderBodySpy.calledWith(sinon.match.any, {
-        desktop: false,
-        tablet: false,
-        mobile: true
-      })
-    );
+    expect(renderBodySpy).calledWith(sinon.match.any, {
+      desktop: false,
+      tablet: false,
+      mobile: true
+    });
   });
 
   it("can change media queries", async () => {
@@ -83,12 +78,10 @@ describe("browser", () => {
       }
     });
 
-    assert.ok(
-      renderBodySpy.calledWith(sinon.match.any, {
-        landscape: true,
-        portrait: false
-      })
-    );
+    expect(renderBodySpy).calledWith(sinon.match.any, {
+      landscape: true,
+      portrait: false
+    });
   });
 });
 
