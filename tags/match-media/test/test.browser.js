@@ -1,4 +1,7 @@
-const assert = require("assert");
+const sinon = require("sinon");
+const { render, cleanup } = require("@marko/testing-library");
+const { expect, use } = require("chai");
+use(require("sinon-chai"));
 const template = require("../");
 const SIZES = {
   desktop: "1025px",
@@ -9,90 +12,84 @@ const SIZES = {
 describe("browser", () => {
   /** @type {HTMLFrameElement} */
   let frame;
-  let matchMedia = window.matchMedia;
-  let component;
-  let matches;
+  let rerender;
+  const renderBodySpy = sinon.spy();
+  const matchMedia = window.matchMedia;
 
-  beforeEach(done => {
+  beforeEach(async () => {
     frame = document.createElement("iframe");
     frame.style.width = SIZES.desktop;
     document.body.appendChild(frame);
     window.matchMedia = frame.contentWindow.matchMedia;
-    waitFrames(frame.contentWindow, 10, () => {
-      component = template
-        .renderSync({
-          renderBody(out, _matches) {
-            matches = _matches;
-          },
-          "*": {
-            mobile: "(max-width: 767px)",
-            tablet: "(min-width: 768px) and (max-width: 1024px)",
-            desktop: "(min-width: 1025px)"
-          }
-        })
-        .appendTo(frame.contentDocument.body)
-        .getComponent();
-      done();
+    await waitFrames(frame.contentWindow, 10);
+    const renderResult = await render(template, {
+      renderBody: renderBodySpy,
+      "*": {
+        mobile: "(max-width: 767px)",
+        tablet: "(min-width: 768px) and (max-width: 1024px)",
+        desktop: "(min-width: 1025px)"
+      }
     });
+
+    rerender = renderResult.rerender;
   });
 
   afterEach(() => {
     window.matchMedia = matchMedia;
-    component.destroy();
+    renderBodySpy.resetHistory();
     frame.remove();
+    cleanup();
   });
 
   it("matches current screen size (desktop) on mount", () => {
-    assert.deepEqual(matches, {
+    expect(renderBodySpy).calledOnceWith(sinon.match.any, {
       desktop: true,
       tablet: false,
       mobile: false
     });
   });
 
-  it("updates to match tablet", done => {
+  it("updates to match tablet", async () => {
     frame.style.width = SIZES.tablet;
-    waitFrames(frame.contentWindow, 10, () => {
-      assert.deepEqual(matches, {
-        desktop: false,
-        tablet: true,
-        mobile: false
-      });
-      done();
+    await waitFrames(frame.contentWindow, 10);
+    expect(renderBodySpy).calledWith(sinon.match.any, {
+      desktop: false,
+      tablet: true,
+      mobile: false
     });
   });
 
-  it("updates to match mobile", done => {
+  it("updates to match mobile", async () => {
     frame.style.width = SIZES.mobile;
-    waitFrames(frame.contentWindow, 10, () => {
-      assert.deepEqual(matches, {
-        desktop: false,
-        tablet: false,
-        mobile: true
-      });
-      done();
+    await waitFrames(frame.contentWindow, 10);
+    expect(renderBodySpy).calledWith(sinon.match.any, {
+      desktop: false,
+      tablet: false,
+      mobile: true
     });
   });
 
-  it("can change media queries", done => {
-    component.input = {
-      renderBody(out, matches) {
-        assert.deepEqual(matches, {
-          landscape: true,
-          portrait: false
-        });
-        done();
-      },
+  it("can change media queries", async () => {
+    await rerender({
+      renderBody: renderBodySpy,
       "*": {
         landscape: "(orientation: landscape)",
         portrait: "(orientation: portrait)"
       }
-    };
+    });
+
+    expect(renderBodySpy).calledWith(sinon.match.any, {
+      landscape: true,
+      portrait: false
+    });
   });
 });
 
-function waitFrames(win, count, fn) {
+function waitFrames(win, count) {
   if (count)
-    return win.requestAnimationFrame(() => waitFrames(win, count - 1, fn));
-  fn();
+    return new Promise(resolve => win.requestAnimationFrame(resolve)).then(() =>
+      waitFrames(win, count - 1)
+    );
+
+  return Promise.resolve();
 }

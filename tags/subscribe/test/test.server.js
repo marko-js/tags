@@ -1,29 +1,17 @@
-const assert = require("assert");
-const cheerio = require("cheerio");
+const { render } = require("@marko/testing-library");
+const { expect } = require("chai");
 const template = require("../");
 
 describe("server", () => {
-  it("does not render anything", () => {
-    const content = "content";
-    return template.render({ renderBody }).then(html => {
-      const $ = cheerio.load(`<html><head></head><body>${html}</body></html>`);
-      const body = $("body");
-      stripComments(body);
-      assert.equal(body.html(), "");
+  it("does not render anything", async () => {
+    const { container } = await render(template, {
+      renderBody(out) {
+        out.write("content");
+      }
     });
 
-    function renderBody(out) {
-      out.write(content);
-    }
+    expect(container)
+      .has.property("children")
+      .with.length(0);
   });
 });
-
-function stripComments(el) {
-  el.contents()
-    .filter(isComment)
-    .remove();
-}
-
-function isComment() {
-  return this.type === "comment";
-}
