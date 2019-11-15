@@ -1,0 +1,29 @@
+{
+  "name": "@marko-tags/portal",
+  "description": "A Portal Component for Marko.js. A typical use case for portals is in dialogs, 'hovercards', and tooltips.",
+  "version": "1.0.0",
+  "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
+  "files": [
+    "index.marko",
+    "target.marko",
+    "marko.json"
+  ],
+  "homepage": "https://github.com/marko-js/tags/tree/master/tags/portal",
+  "keywords": [
+    "marko",
+    "markojs",
+    "portal",
+    "dialog",
+    "body",
+    "overflow",
+    "z-index"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "marko": "^4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marko-js/tags"
+  }
+}

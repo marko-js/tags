@@ -1,0 +1,8 @@
+{
+  "<portal>": {
+    "template": "./index.marko",
+    "attributes": {
+      "target": "expression"
+    }
+  }
+}
