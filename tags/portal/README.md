@@ -18,8 +18,6 @@
   </a>
 </h1>
 
-A Portal Component for Marko.js
-
 Portals provide a way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
 
 A typical use case for portals is when a parent component has an `overflow: hidden` or `z-index` style, but you need the child to visually “break out” of its container. For example, dialogs and tooltips.

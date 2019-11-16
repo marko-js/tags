@@ -24,12 +24,14 @@
 
 ## Packages
 
-- [match-media](https://github.com/marko-js/tags/blob/master/tags/match-media) -
-  media queries directly in your Marko templates.
-- [subscribe](https://github.com/marko-js/tags/blob/master/tags/subscribe) -
-  declarative event subscriptions component.
 - [context](https://github.com/marko-js/tags/blob/master/tags/context) -
   share data through arbitrarily deep Marko components.
+- [match-media](https://github.com/marko-js/tags/blob/master/tags/match-media) -
+  media queries directly in your Marko templates.
+- [portal](https://github.com/marko-js/tags/blob/master/tags/portal) -
+  render content somewhere else in the DOM.
+- [subscribe](https://github.com/marko-js/tags/blob/master/tags/subscribe) -
+  declarative event subscriptions component.
 
 ## Contributing
 
