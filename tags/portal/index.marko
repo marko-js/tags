@@ -1,0 +1,37 @@
+import targetTemplate from './target'
+
+class {
+    onMount() {
+        this.target = this.getTarget(this.input.target);
+        this.component = targetTemplate
+            .renderSync(this.input)
+            .appendTo(this.target)
+            .getComponent();
+    }
+    onInput(newInput) {
+        let component = this.component;
+        if (component) {
+            let target = this.getTarget(newInput.target);
+
+            if (target !== this.target) {
+                component.els.forEach(el => target.appendChild(el));
+                this.target = target;
+            }
+
+            component.input = newInput;
+        }
+    }
+    getTarget(target) {
+        if (typeof target === "string") {
+            target = document.getElementById(target);
+        }
+        return target || document.body;
+    }
+    onDestroy() {
+        this.component.destroy();
+    }
+}
+
+<span style={
+    display: "none"
+}/>
