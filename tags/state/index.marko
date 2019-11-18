@@ -1,0 +1,14 @@
+class {
+  onCreate() {
+    this.state = {
+      value: undefined
+    };
+    this.updateValue = this.updateValue.bind(this);
+  }
+
+  updateValue(newValue) {
+    this.state.value = newValue;
+  }
+}
+
+<${out => input.renderBody(out, state.value, component.updateValue)}/>

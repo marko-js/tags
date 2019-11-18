@@ -1,0 +1,25 @@
+{
+  "name": "@marko-tags/state",
+  "description": "Use state without a class.",
+  "version": "0.0.0",
+  "author": "Michae Rawlings <mirawlings@ebay.com>",
+  "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
+  "files": [
+    "index.marko",
+    "marko.json"
+  ],
+  "homepage": "https://github.com/marko-js/tags/tree/master/tags/state",
+  "keywords": [
+    "marko",
+    "components",
+    "state"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "marko": "^4.12.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marko-js/tags"
+  }
+}
