@@ -1,0 +1,23 @@
+{
+  "<state>": {
+    "template": "./index.marko",
+    "transformer": "./transformer.js",
+    "@variable": {
+      "type": "expression",
+      "autocomplete": [
+        {
+          "description": "Variable to declare"
+        }
+      ]
+    },
+    "autocomplete": [
+      {
+        "snippet": "state|${1:variable}|",
+        "description": "Use to declare"
+      },
+      {
+        "snippet": "state|${1:variable} = ${object}|"
+      }
+    ]
+  }
+}

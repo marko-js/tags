@@ -1,0 +1,26 @@
+<state|myState = 1|/>
+<state|otherState = 2|/>
+<state|evenOneMore = 2|/>
+$ function outerCall(myState, otherState) {
+  if (myState + otherState > 5) {
+    evenOneMore = myState + otherState - 5;
+  } else {
+    evenOneMore = -1;
+  }
+}
+$ function runE(passedArg, otherPassed) {
+  if (otherPassed > passedArg) {
+    myState += 2;
+  } else if (otherState >= 3) {
+    myState = 1;
+  } else {
+    otherState++;
+  }
+  outerCall(passedArg, otherPassed);
+}
+<div>
+  <div id="1">${myState}</div>
+  <div id="2">${otherState}</div>
+  <div id="3">${evenOneMore}</div>
+  <button key="button" onClick(runE, myState, otherState)>RunMe</button>
+</div>

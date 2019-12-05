@@ -1,0 +1,12 @@
+<state|myState = "1"|/>
+$ function runE() {
+  if (myState === "1") {
+    myState = "2";
+  } else {
+    myState = "1";
+  }
+}
+<div>
+  <div id="container">${myState}</div>
+  <button key="button" onClick(runE)>Switch</button>
+</div>
