@@ -6,14 +6,14 @@
       "type": "expression",
       "autocomplete": [
         {
-          "description": "Variable to declare"
+          "description": "The name of the state variable to control"
         }
       ]
     },
     "autocomplete": [
       {
         "snippet": "state|${1:variable}|",
-        "description": "Use to declare"
+        "description": "Used to create an inline controllable state"
       },
       {
         "snippet": "state|${1:variable} = ${object}|"

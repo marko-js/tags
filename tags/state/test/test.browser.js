@@ -24,11 +24,11 @@ describe("browser", () => {
 
       fireEvent.click(button);
       await rerender();
-      expect(getByText("2").tagName).to.equal("DIV");
+      expect(getByText("2")).to.exist;
 
       fireEvent.click(button);
       await rerender();
-      expect(getByText("3").tagName).to.equal("DIV");
+      expect(getByText("3")).to.exist;
     });
 
     it("Updates multi state", async () => {
@@ -53,26 +53,26 @@ describe("browser", () => {
       const { rerender, getByText } = await render(booleanState);
       const button = getByText("Toggle");
 
-      expect(getByText("false").tagName).to.equal("DIV");
+      expect(getByText("false")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("true").tagName).to.equal("DIV");
+      expect(getByText("true")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("false").tagName).to.equal("DIV");
+      expect(getByText("false")).to.exist;
     });
 
     it("Updates assignment state", async () => {
       const { rerender, getByText } = await render(assignmentState);
       const button = getByText("Switch");
 
-      expect(getByText("1").tagName).to.equal("DIV");
+      expect(getByText("1")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("2").tagName).to.equal("DIV");
+      expect(getByText("2")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("1").tagName).to.equal("DIV");
+      expect(getByText("1")).to.exist;
     });
 
     it("Updates large function properly", async () => {

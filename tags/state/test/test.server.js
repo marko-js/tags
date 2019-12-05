@@ -16,7 +16,7 @@ describe("server", () => {
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("Custom state text").tagName).to.equal("DIV");
+    expect(getByText("Custom state text")).to.exist;
   });
 
   it("renders as multi state tags", async () => {
@@ -28,8 +28,8 @@ describe("server", () => {
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("Custom state text").tagName).to.equal("DIV");
-    expect(getByText("2").tagName).to.equal("DIV");
+    expect(getByText("Custom state text")).to.exist;
+    expect(getByText("2")).to.exist;
   });
   it("renders as using complex functions", async () => {
     const { container, getByText } = await render(assignment);
@@ -38,7 +38,7 @@ describe("server", () => {
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("1").tagName).to.equal("DIV");
+    expect(getByText("1")).to.exist;
   });
   it("renders as using boolean functions", async () => {
     const { container, getByText } = await render(bool);
@@ -47,7 +47,7 @@ describe("server", () => {
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("false").tagName).to.equal("DIV");
+    expect(getByText("false")).to.exist;
   });
   it("errors when using old scriptlet", async () => {
     expect(() => {

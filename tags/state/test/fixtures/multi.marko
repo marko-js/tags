@@ -1,5 +1,5 @@
 <state|myState = input.value|/>
-<state|otherState = input.value2| | 2|/>
+<state|otherState = input.value2|/>
 $ function runE() {
   otherState--;
   myState++;
@@ -7,7 +7,7 @@ $ function runE() {
 <div>
   <div id="container">
     <div id="1">${myState}</div>
-    <div id="2">${otherState}</div>
+    <div id="2">${otherState || 2}</div>
   </div>
   <button key="button" onClick(runE)>Increment</button>
 </div>

@@ -21,7 +21,7 @@ function getValue(body) {
   }
 }
 
-function findExpression(ast, id) {
+function replaceStateAssignments(ast, id) {
   let isChanged;
   const replace = estraverse.replace(ast, {
     enter: function(node) {
@@ -48,8 +48,8 @@ function findExpression(ast, id) {
   return !isChanged ? null : ast;
 }
 
-function getNewAst(ast, id, builder, node) {
-  const newAst = findExpression(ast, id);
+function getNewMarkoAST(ast, id, builder, node) {
+  const newAst = replaceStateAssignments(ast, id);
   if (newAst) {
     let newCode = escodegen.generate(newAst);
     if (newCode[newCode.length - 1] === ";") {
@@ -82,7 +82,7 @@ function lookFor(context, id) {
               const currentProp = properties[prop];
               currentProp.args = currentProp.args.map(arg => {
                 if (arg.type === "Expression") {
-                  const newAst = getNewAst(arg.ast, id, builder);
+                  const newAst = getNewMarkoAST(arg.ast, id, builder);
                   return newAst || arg;
                 }
                 return arg;
@@ -90,11 +90,8 @@ function lookFor(context, id) {
             }
           });
         }
-      } else if (
-        node.type === "HtmlAttribute" &&
-        node.name.indexOf("on") === 0
-      ) {
-        const newAst = getNewAst(
+      } else if (node.type === "HtmlAttribute" && node.argument) {
+        const newAst = getNewMarkoAST(
           esprima.parseScript(node.argument),
           id,
           builder
@@ -103,7 +100,7 @@ function lookFor(context, id) {
           node.argument = newAst.value;
         }
       } else if (node.type === "Expression" && !node.isDetached()) {
-        const newAst = getNewAst(node.ast, id, builder);
+        const newAst = getNewMarkoAST(node.ast, id, builder);
         if (newAst) {
           node.replaceWith(newAst);
         }
@@ -118,8 +115,11 @@ function lookFor(context, id) {
         }
         // Parse scriptlet
 
-        const parsedScript = esprima.parseScript(node.code);
-        const newAst = getNewAst(parsedScript, id, builder, node);
+        const parsedScript =
+          typeof node.code === "string"
+            ? esprima.parseScript(node.code)
+            : node.code;
+        const newAst = getNewMarkoAST(parsedScript, id, builder, node);
         if (newAst) {
           node.code = newAst.code;
         }
