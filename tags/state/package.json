@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "marko": ">=4.18.28"
+    "marko": "^4.18.28"
   },
   "repository": {
     "type": "git",
