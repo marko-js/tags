@@ -1,6 +1,6 @@
 {
   "name": "@marko-tags/state",
-  "description": "State manipulation in your template",
+  "description": "Inline state management within your Marko templates",
   "version": "0.1.0",
   "author": "Andrew Gliga <agliga@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
@@ -15,7 +15,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "marko": "^4.15.0"
+    "marko": ">=4.18.28"
   },
   "repository": {
     "type": "git",
