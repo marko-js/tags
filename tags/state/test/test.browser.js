@@ -17,18 +17,18 @@ describe("browser", () => {
 
   describe("State update", () => {
     it("Updates simple state", async () => {
-      const { rerender, getByText } = await render(simpleState, {
+      const { rerender, queryByText, getByText } = await render(simpleState, {
         value: 1
       });
       const button = getByText("Increment");
 
       fireEvent.click(button);
       await rerender();
-      expect(getByText("2")).to.exist;
+      expect(queryByText("2")).to.exist;
 
       fireEvent.click(button);
       await rerender();
-      expect(getByText("3")).to.exist;
+      expect(queryByText("3")).to.exist;
     });
 
     it("Updates multi state", async () => {
@@ -50,29 +50,31 @@ describe("browser", () => {
     });
 
     it("Updates boolean state", async () => {
-      const { rerender, getByText } = await render(booleanState);
+      const { rerender, queryByText, getByText } = await render(booleanState);
       const button = getByText("Toggle");
 
-      expect(getByText("false")).to.exist;
+      expect(queryByText("false")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("true")).to.exist;
+      expect(queryByText("true")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("false")).to.exist;
+      expect(queryByText("false")).to.exist;
     });
 
     it("Updates assignment state", async () => {
-      const { rerender, getByText } = await render(assignmentState);
+      const { rerender, queryByText, getByText } = await render(
+        assignmentState
+      );
       const button = getByText("Switch");
 
-      expect(getByText("1")).to.exist;
+      expect(queryByText("1")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("2")).to.exist;
+      expect(queryByText("2")).to.exist;
       fireEvent.click(button);
       await rerender();
-      expect(getByText("1")).to.exist;
+      expect(queryByText("1")).to.exist;
     });
 
     it("Updates large function properly", async () => {

@@ -8,7 +8,7 @@ const noInit = require("./fixtures/noInitializer.marko");
 
 describe("server", () => {
   it("renders as usual without state tag", async () => {
-    const { container, getByText } = await render(simple, {
+    const { container, queryByText } = await render(simple, {
       value: "Custom state text"
     });
 
@@ -16,11 +16,11 @@ describe("server", () => {
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("Custom state text")).to.exist;
+    expect(queryByText("Custom state text")).to.exist;
   });
 
   it("renders as multi state tags", async () => {
-    const { container, getByText } = await render(multi, {
+    const { container, queryByText } = await render(multi, {
       value: "Custom state text"
     });
 
@@ -28,26 +28,26 @@ describe("server", () => {
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("Custom state text")).to.exist;
-    expect(getByText("2")).to.exist;
+    expect(queryByText("Custom state text")).to.exist;
+    expect(queryByText("2")).to.exist;
   });
   it("renders as using complex functions", async () => {
-    const { container, getByText } = await render(assignment);
+    const { container, queryByText } = await render(assignment);
 
     expect(container)
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("1")).to.exist;
+    expect(queryByText("1")).to.exist;
   });
   it("renders as using boolean functions", async () => {
-    const { container, getByText } = await render(bool);
+    const { container, queryByText } = await render(bool);
 
     expect(container)
       .has.property("children")
       .with.length(1);
 
-    expect(getByText("false")).to.exist;
+    expect(queryByText("false")).to.exist;
   });
   it("errors when using old scriptlet", async () => {
     expect(() => {
