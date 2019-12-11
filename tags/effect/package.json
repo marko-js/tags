@@ -1,0 +1,28 @@
+{
+  "name": "@marko-tags/subscribe",
+  "description": "Media queries directly in your Marko templates.",
+  "version": "0.2.0",
+  "author": "Dylan Piercey <dpiercey@ebay.com>",
+  "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
+  "files": [
+    "index.marko",
+    "transformer.js",
+    "marko.json"
+  ],
+  "homepage": "https://github.com/marko-js/tags/tree/master/tags/subscribe",
+  "keywords": [
+    "marko",
+    "subscribe",
+    "events",
+    "event",
+    "emitter"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "marko": "^4.12.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marko-js/tags"
+  }
+}
