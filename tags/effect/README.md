@@ -23,7 +23,7 @@ Add and remove event subscriptions within your template.
 # Installation
 
 ```console
-npm install @marko-tagseffect/
+npm install @marko-tags/effect
 ```
 
 # Example
