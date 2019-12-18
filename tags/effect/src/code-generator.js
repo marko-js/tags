@@ -79,7 +79,7 @@ module.exports = function(el, codegen) {
     // use the runtime implementation (effect.marko/mount.marko)
 
     // otherwise
-    const key = context.meta.id;
+    const key = context.nextUniqueId();
     const helper = context.importModule(
       "effect_tag",
       context.getRelativePath(require.resolve("./helper"))
