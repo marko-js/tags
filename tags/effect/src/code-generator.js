@@ -88,7 +88,6 @@ module.exports = function(el, codegen) {
     let deps = [];
 
     if (el.tagName === "effect") {
-      console.log(context.root, context.meta);
       deps = findDeps(context);
     }
 
