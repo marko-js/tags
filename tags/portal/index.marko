@@ -9,12 +9,12 @@ class {
             .getComponent();
     }
     onInput(newInput) {
-        let component = this.component;
+        var component = this.component;
         if (component) {
-            let target = this.getTarget(newInput.target);
+            var target = this.getTarget(newInput.target);
 
             if (target !== this.target) {
-                component.els.forEach(el => target.appendChild(el));
+                component.appendTo(target);
                 this.target = target;
             }
 
@@ -32,6 +32,4 @@ class {
     }
 }
 
-<span style={
-    display: "none"
-}/>
+<!--  -->
