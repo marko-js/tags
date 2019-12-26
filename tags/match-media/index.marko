@@ -1,6 +1,6 @@
 class {
   onCreate(input) {
-    var queries = input["*"];
+    var queries = input.queries;
     this.matches = Object.keys(queries).reduce(function(matches, name) {
       matches[name] = false;
       return matches;
@@ -15,10 +15,10 @@ class {
     var matchers = (this.matchers = this.matchers || {});
     var prevInput = this.prevInput;
     var input = (this.prevInput = this.input);
-    var queries = input["*"];
+    var queries = input.queries;
 
     if (prevInput) {
-      var prevQueries = prevInput["*"];
+      var prevQueries = prevInput.queries;
       Object.keys(prevQueries).forEach(function(name) {
         if (queries[name] === prevQueries[name]) return;
         if (!(name in queries)) delete matches[name];

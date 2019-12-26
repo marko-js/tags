@@ -1,6 +1,9 @@
 {
   "<match-media>": {
     "template": "./index.marko",
-    "@*": "expression"
+    "@*": {
+      "type": "expression",
+      "targetProperty": "queries"
+    }
   }
 }

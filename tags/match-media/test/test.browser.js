@@ -24,7 +24,7 @@ describe("browser", () => {
     await waitFrames(frame.contentWindow, 10);
     const renderResult = await render(template, {
       renderBody: renderBodySpy,
-      "*": {
+      queries: {
         mobile: "(max-width: 767px)",
         tablet: "(min-width: 768px) and (max-width: 1024px)",
         desktop: "(min-width: 1025px)"
@@ -72,7 +72,7 @@ describe("browser", () => {
   it("can change media queries", async () => {
     await rerender({
       renderBody: renderBodySpy,
-      "*": {
+      queries: {
         landscape: "(orientation: landscape)",
         portrait: "(orientation: portrait)"
       }
