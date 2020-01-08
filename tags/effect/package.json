@@ -1,7 +1,7 @@
 {
   "name": "@marko-tags/effect",
   "description": "Lifecycle events directly in your template",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Michael Rawlings <mrawlings@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.1.0...@marko-tags/match-media@1.1.1) (2020-01-08)
+
+
+### Bug Fixes
+
+* **match-media:** update tag def to avoid deprecated default ([#20](https://github.com/marko-js/tags/issues/20)) ([cc61a33](https://github.com/marko-js/tags/commit/cc61a332305c56d9cc5e58393e753b0637b8c310))
+
+
+
+
+
 # [1.1.0](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.0.0...@marko-tags/match-media@1.1.0) (2019-02-15)
 
 

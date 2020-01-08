@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/marko-js/tags/compare/@marko-tags/portal@1.1.0...@marko-tags/portal@1.1.1) (2020-01-08)
+
+
+### Bug Fixes
+
+* **portal:** improve logic for moving target, support older browsers ([#19](https://github.com/marko-js/tags/issues/19)) ([a79321a](https://github.com/marko-js/tags/commit/a79321a8073abe0e5c486e574803c763d70b38e0))
+
+
+
+
+
 # 1.1.0 (2019-11-18)
 
 

@@ -1,7 +1,7 @@
 {
   "name": "@marko-tags/state",
   "description": "Inline state management within your Marko templates",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Andrew Gliga <agliga@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [
