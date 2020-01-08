@@ -1,0 +1,12 @@
+{
+  "<effect>": {
+    "template": "./src/index.marko",
+    "code-generator": "./src/code-generator.js",
+    "node-factory": "./src/ensure-component.js"
+  },
+  "<mount>": {
+    "template": "./src/index.marko",
+    "code-generator": "./src/code-generator.js",
+    "node-factory": "./src/ensure-component.js"
+  }
+}
