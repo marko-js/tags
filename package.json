@@ -3,7 +3,7 @@
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "@commitlint/config-lerna-scopes": "^8.2.0",
-    "@marko/testing-library": "^1.1.2",
+    "@marko/testing-library": "^3.0.0",
     "chai": "^4.2.0",
     "chai-dom": "^1.8.1",
     "cheerio": "^1.0.0-rc.3",
