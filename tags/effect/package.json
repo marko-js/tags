@@ -5,10 +5,10 @@
   "author": "Michael Rawlings <mrawlings@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [
-    "index.marko",
-    "code-generator.js",
-    "ensure-component.js",
-    "helper.js",
+    "src/index.marko",
+    "src/code-generator.js",
+    "src/ensure-component.js",
+    "src/helper.js",
     "marko.json"
   ],
   "homepage": "https://github.com/marko-js/tags/tree/master/tags/effect",
