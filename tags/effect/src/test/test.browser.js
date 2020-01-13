@@ -5,6 +5,7 @@ use(require("chai-dom"));
 use(require("sinon-chai"));
 
 const effect = require("./fixtures/effect.marko");
+const mountEffect = require("./fixtures/mount-effect.marko");
 const mount = require("./fixtures/mount.marko");
 
 describe("browser", () => {
@@ -114,6 +115,23 @@ describe("browser", () => {
       await cleanup();
 
       expect(spy).calledOnceWith("cleaned foo");
+    });
+  });
+
+  describe("mount effect", () => {
+    it("fires on mount & cleans up", async () => {
+      const { rerender, queryByText, getByText, container } = await render(
+        mountEffect,
+        {
+          isOpen: true
+        }
+      );
+
+      await rerender({ isOpen: false });
+
+      expect(getByText("is false"));
+      await rerender({ isOpen: true });
+      expect(getByText("is true"));
     });
   });
 });
