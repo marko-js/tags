@@ -8,35 +8,27 @@ function findDepsInAst(ast) {
   estraverse.traverse(ast, {
     enter: node => {
       let top = callStack[callStack.length - 1];
-      if (node.type === "CallExpression") {
+      if (node.type === "MemberExpression") {
         callStack.push({
-          member: false,
-          reserved: null,
-          members: [],
-          identifier: []
+          identifier: [],
+          members: []
         });
-      } else if (node.type === "MemberExpression" && !!top) {
-        top.member = true;
-      } else if (node.type === "Identifier" && !!top && top.member) {
+      } else if (node.type === "Identifier" && !!top) {
         top.identifier.push(node.name);
       }
     },
     leave: node => {
-      let top = callStack[callStack.length - 1];
-      if (node.type === "CallExpression") {
-        dependencies.push(callStack.pop());
-      } else if (node.type === "MemberExpression" && top) {
-        top.member = false;
-        top.reserved = null;
+      if (node.type === "MemberExpression") {
+        const top = callStack.pop();
         top.members.push(top.identifier.map(i => i));
-        top.identifier = [];
+        dependencies.push(top);
       }
     }
   });
   return dependencies;
 }
 
-function findDeps(context) {
+function findDeps(el, context) {
   const builder = context.builder;
   let dependencies = [];
   const foundDepdencies = {};
@@ -64,7 +56,7 @@ function findDeps(context) {
     }
   });
 
-  walker.walk(context.root);
+  walker.walk(el);
   return dependencies;
 }
 
@@ -88,7 +80,7 @@ module.exports = function(el, codegen) {
     let deps = [];
 
     if (el.tagName === "effect") {
-      deps = findDeps(context);
+      deps = findDeps(el, context);
     }
 
     return builder.functionCall(helper, [
