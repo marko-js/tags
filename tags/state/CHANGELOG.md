@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/marko-js/tags/compare/@marko-tags/state@0.2.2...@marko-tags/state@0.2.3) (2020-02-12)
+
+
+### Bug Fixes
+
+* added ensure-component to package.json publish ([c018e2b](https://github.com/marko-js/tags/commit/c018e2bc01aeba0aa3b320e2956e5098516f0fd8))
+
+
+
+
+
 ## [0.2.2](https://github.com/marko-js/tags/compare/@marko-tags/state@0.2.1...@marko-tags/state@0.2.2) (2020-02-12)
 
 
