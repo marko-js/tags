@@ -1,9 +1,3 @@
-class {
-  handleSomethingElse() {
-    this.something = true;
-  }
-}
-
 <state|myState = "1"|/>
 $ function runE() {
   if (myState === "1") {
@@ -12,9 +6,12 @@ $ function runE() {
     myState = "1";
   }
 }
+$ function handleSomethingElse() {
+  this.something = true;
+}
 <div>
   <div id="container">${myState}</div>
-  <button key="button" onMouseOver("handleSomethingElse") onClick(runE)>
+  <button key="button" onMouseOver(handleSomethingElse) onClick(runE)>
     Switch
   </button>
 </div>
