@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/marko-js/tags/compare/@marko-tags/state@0.2.1...@marko-tags/state@0.2.2) (2020-02-12)
+
+
+### Bug Fixes
+
+* fixed broken test with class in state ([1a2fcdf](https://github.com/marko-js/tags/commit/1a2fcdf7c143891094a7b585a354fec33b200459))
+* updated state to ensure component ([a72bb95](https://github.com/marko-js/tags/commit/a72bb954f92e3d7d48f1a90fb02f493057994e93))
+
+
+
+
+
 ## [0.2.1](https://github.com/marko-js/tags/compare/@marko-tags/state@0.2.0...@marko-tags/state@0.2.1) (2020-01-09)
 
 **Note:** Version bump only for package @marko-tags/state
