@@ -1,6 +1,7 @@
 {
   "<state>": {
     "template": "./index.marko",
+    "node-factory": "./ensure-component.js",
     "transformer": "./transformer.js",
     "@variable": {
       "type": "expression",

@@ -32,6 +32,10 @@
   render content somewhere else in the DOM.
 - [subscribe](https://github.com/marko-js/tags/blob/master/tags/subscribe) -
   declarative event subscriptions component.
+- [state](https://github.com/marko-js/tags/blob/master/tags/state) -
+  stateful manipulations directly from your template
+- [effect](https://github.com/marko-js/tags/blob/master/tags/effeft) -
+  lifecycle events in your template
 
 ## Contributing
 
