@@ -7,7 +7,8 @@
   "files": [
     "transformer.js",
     "index.marko",
-    "marko.json"
+    "marko.json",
+    "ensure-component.js"
   ],
   "homepage": "https://github.com/marko-js/tags/tree/master/tags/subscribe",
   "keywords": [
