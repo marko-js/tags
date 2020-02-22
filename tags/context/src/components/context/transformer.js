@@ -8,7 +8,16 @@ module.exports = function(el, ctx) {
     const fromAttr = el.getAttribute("from");
     let from = fromAttr && fromAttr.literalValue;
 
-    if (from) {
+    if (from === "$global") {
+      el.insertSiblingBefore(
+        builder.scriptlet({
+          value: `var ${el.params[0].toString()} = out.global;`
+        })
+      );
+      el.forEachChild(child => el.insertSiblingBefore(child));
+      el.detach();
+      return;
+    } else if (from) {
       if (from === ".") {
         from = lassoClientTransport.getClientPath(ctx.filename);
       } else {

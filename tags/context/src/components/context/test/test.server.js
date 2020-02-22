@@ -4,6 +4,14 @@ use(require("chai-dom"));
 
 describe("server", () => {
   it("renders in the same component", async () => {
+    const template = require("./fixtures/global-context");
+    const { container } = await render(template, {
+      $global: { test: "[provided content]" }
+    });
+    expect(container).has.text("[provided content]");
+  });
+
+  it("renders in the same component", async () => {
     const template = require("./fixtures/same-component");
     const { container } = await render(template, {
       data: "[provided content]"
