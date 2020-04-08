@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/marko-js/tags/compare/@marko-tags/context@1.1.1...@marko-tags/context@2.0.0) (2020-04-08)
+
+
+### Features
+
+* **context:** use constructor instance as context id ([#27](https://github.com/marko-js/tags/issues/27)) ([c8ff653](https://github.com/marko-js/tags/commit/c8ff653c372eaa9b976f00cfa41f421d3e4315d6))
+
+
+### BREAKING CHANGES
+
+* **context:** This requires that the provider is always sent to the browser and rendered in the browser
+
+
+
+
+
 ## [1.1.1](https://github.com/marko-js/tags/compare/@marko-tags/context@1.1.0...@marko-tags/context@1.1.1) (2019-11-18)
 
 **Note:** Version bump only for package @marko-tags/context
