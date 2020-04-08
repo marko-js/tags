@@ -6,15 +6,14 @@ static const noop = function() {};
 
 class {
   onInput(input, out) {
-    var to = this.id;
-    var name = input.__from;
-    var provider = getProvider(out, name);
+    var type = input.__from;
+    var provider = getProvider(out, type);
 
     if (provider) {
       this.state = provider.data;
       this.emitToProvider = provider.emit && provider.emit.bind(provider);
 
-      if (process.browser) {
+      if (typeof window !== "undefined") {
         if (this.sub) this.sub.removeAllListeners();
         this.sub = this.subscribeTo(provider).on(
           "__change",
