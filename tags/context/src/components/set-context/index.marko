@@ -7,7 +7,7 @@ class {
 
   onInput(input) {
     var data = (this.data = {});
-    this.name = input.__from;
+    this.type = input.__from;
 
     for (var key in input) {
       if (key !== "__from" && key !== "renderBody") {

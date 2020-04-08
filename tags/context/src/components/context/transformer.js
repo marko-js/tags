@@ -1,5 +1,3 @@
-const lassoClientTransport = require("lasso-modules-client/transport");
-
 module.exports = function(el, ctx) {
   const { builder } = ctx;
 
@@ -10,12 +8,12 @@ module.exports = function(el, ctx) {
 
     if (from) {
       if (from === ".") {
-        from = lassoClientTransport.getClientPath(ctx.filename);
+        from = buildModuleExports(builder);
       } else {
         const fromTag = ctx.taglibLookup.getTag(from);
 
         if (fromTag) {
-          from = lassoClientTransport.getClientPath(fromTag.template);
+          from = ctx.importTemplate(fromTag.template);
         } else {
           return ctx.addError(
             `context receiver could not find context provider matching 'from="${from}"'.`
@@ -30,15 +28,21 @@ module.exports = function(el, ctx) {
 
     const getNode = ctx.createNodeForEl("get-context");
     getNode.params = el.params;
-    getNode.setAttributeValue("__from", builder.literal(from));
+    getNode.setAttributeValue("__from", from);
     getNode.body = el.body;
     el.replaceWith(getNode);
   } else {
     // Set context tag.
-    const from = lassoClientTransport.getClientPath(ctx.filename);
     setNode = ctx.createNodeForEl("set-context", el.getAttributes());
-    setNode.setAttributeValue("__from", builder.literal(from));
+    setNode.setAttributeValue("__from", buildModuleExports(builder));
     setNode.body = el.body;
     el.replaceWith(setNode);
   }
 };
+
+function buildModuleExports(builder) {
+  return builder.memberExpression(
+    builder.identifier("module"),
+    builder.identifier("exports")
+  );
+}

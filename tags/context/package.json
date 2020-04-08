@@ -17,9 +17,6 @@
   "peerDependencies": {
     "marko": "^4.15.0"
   },
-  "dependencies": {
-    "lasso-modules-client": "^2.0.5"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/marko-js/tags"
