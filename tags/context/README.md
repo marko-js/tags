@@ -86,6 +86,14 @@ The `from` attribute here is special and uses the same [discovery method](https:
 
 This method avoids namespace collisions without all of the additional boilerplate needed by solutions in other frameworks.
 
+If for some reason the provider component cannot be discovered through the normal component discovery method, you can `import` the component manually and pass the constructor as the `from` attribute.
+
+```
+import Router from "../../some-strange-path/template.marko";
+
+<context|data| from=Router>
+```
+
 # Example
 
 Lets say we want to have a custom form component with a schema that validates its special form inputs. With forms you likely want to allow developers to insert arbitrary markup and components to fit their design and functionality requirements.
