@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/marko-js/tags/compare/@marko-tags/context@2.0.0...@marko-tags/context@2.1.0) (2020-04-17)
+
+
+### Bug Fixes
+
+* **context:** display error when invalid component constructor provided ([e763a9e](https://github.com/marko-js/tags/commit/e763a9ee86a8923aa5244f9313c9b45ac32bf14a))
+
+
+### Features
+
+* **context:** support receiving component constructor as from attr ([#30](https://github.com/marko-js/tags/issues/30)) ([3fcf016](https://github.com/marko-js/tags/commit/3fcf0169a02227d7cbc4ca6a7751190284879ea0))
+
+
+
+
+
 # [2.0.0](https://github.com/marko-js/tags/compare/@marko-tags/context@1.1.1...@marko-tags/context@2.0.0) (2020-04-08)
 
 
