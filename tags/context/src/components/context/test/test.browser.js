@@ -63,6 +63,40 @@ describe("browser", () => {
     });
   });
 
+  describe("rendered in two separate components with from as a constructor", () => {
+    const template = require("./fixtures/external-components-from-as-constructor");
+    let container, rerender, component;
+
+    beforeEach(async () => {
+      ({ container, rerender, getByTestId } = await render(template, {
+        data: "[provided content]"
+      }));
+      component = getComponentForEl(getByTestId("root"));
+    });
+
+    it("renders properly", () => {
+      expect(container).has.text(
+        "[example content] [receiver content][provided content]"
+      );
+    });
+
+    it("updates context on parent rerender", async () => {
+      await rerender({ data: "[provided content updated]" });
+      expect(container).has.text(
+        "[example content] [receiver content][provided content updated]"
+      );
+    });
+
+    it("updates context on receiver rerender", () => {
+      const receiver = component.getComponent("receiver");
+      receiver.forceUpdate();
+      receiver.update();
+      expect(container).has.text(
+        "[example content] [receiver content][provided content]"
+      );
+    });
+  });
+
   describe("rendered with multiple context components", () => {
     const template = require("./fixtures/multiple-context-components");
     let container, rerender, component;

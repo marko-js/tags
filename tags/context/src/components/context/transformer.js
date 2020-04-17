@@ -3,32 +3,34 @@ module.exports = function(el, ctx) {
 
   if (el.params.length) {
     // Receive context tag.
-    const fromAttr = el.getAttribute("from");
-    let from = fromAttr && fromAttr.literalValue;
+    let fromValue = el.getAttributeValue("from");
 
-    if (from) {
-      if (from === ".") {
-        from = buildModuleExports(builder);
-      } else {
-        const fromTag = ctx.taglibLookup.getTag(from);
-
-        if (fromTag) {
-          from = ctx.importTemplate(fromTag.template);
-        } else {
-          return ctx.addError(
-            `context receiver could not find context provider matching 'from="${from}"'.`
-          );
-        }
-      }
-    } else {
+    if (!fromValue) {
       return ctx.addError(
         "context 'from' attribute is required and should point to another component."
       );
     }
 
+    if (fromValue.type === "Literal") {
+      const literalValue = fromValue.value;
+      if (literalValue === ".") {
+        fromValue = buildModuleExports(builder);
+      } else {
+        const fromTag = ctx.taglibLookup.getTag(literalValue);
+
+        if (fromTag) {
+          fromValue = ctx.importTemplate(fromTag.template);
+        } else {
+          return ctx.addError(
+            `context receiver could not find context provider matching 'from="${literalValue}"'.`
+          );
+        }
+      }
+    }
+
     const getNode = ctx.createNodeForEl("get-context");
     getNode.params = el.params;
-    getNode.setAttributeValue("__from", from);
+    getNode.setAttributeValue("__from", fromValue);
     getNode.body = el.body;
     el.replaceWith(getNode);
   } else {

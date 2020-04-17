@@ -21,6 +21,16 @@ describe("server", () => {
     );
   });
 
+  it("renders in two separate components using from as a constructor", async () => {
+    const template = require("./fixtures/external-components-from-as-constructor");
+    const { container } = await render(template, {
+      data: "[provided content]"
+    });
+    expect(container).has.text(
+      "[example content] [receiver content][provided content]"
+    );
+  });
+
   it("renders across distant components", async () => {
     const template = require("./fixtures/distant-components");
     const { container } = await render(template, {
