@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/marko-js/tags/compare/@marko-tags/context@2.1.0...@marko-tags/context@2.1.1) (2020-04-17)
+
+
+### Bug Fixes
+
+* **context:** context receiver renders in the same tick as provider ([ec5c38a](https://github.com/marko-js/tags/commit/ec5c38a2c1ddc2331fb87c7ba836d8a8eba7ee3f))
+
+
+
+
+
 # [2.1.0](https://github.com/marko-js/tags/compare/@marko-tags/context@2.0.0...@marko-tags/context@2.1.0) (2020-04-17)
 
 
