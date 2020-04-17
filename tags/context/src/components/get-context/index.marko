@@ -5,6 +5,13 @@ static const EMPTY_OBJECT = {};
 static const noop = function() {};
 
 class {
+  sync(state) {
+    this.setState(state);
+    this.update();
+  }
+  onCreate() {
+    this.sync = this.sync.bind(this);
+  }
   onInput(input, out) {
     var type = input.__from;
 
@@ -23,10 +30,7 @@ class {
 
       if (typeof window !== "undefined") {
         if (this.sub) this.sub.removeAllListeners();
-        this.sub = this.subscribeTo(provider).on(
-          "__change",
-          this.setState.bind(this)
-        );
+        this.sub = this.subscribeTo(provider).on("__change", this.sync);
       }
     }
   }
