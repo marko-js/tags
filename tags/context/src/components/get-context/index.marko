@@ -7,6 +7,14 @@ static const noop = function() {};
 class {
   onInput(input, out) {
     var type = input.__from;
+
+    if (!type || !type.render) {
+      throw new Error(
+        "Invalid component constructor provided as <context> 'from' attribute. Got: " +
+          type
+      );
+    }
+
     var provider = getProvider(out, type);
 
     if (provider) {
