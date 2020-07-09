@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.2.0...@marko-tags/subscribe@0.3.0) (2020-07-09)
+
+
+### Features
+
+* **subscribe:** update to work with Marko 5 ([a261551](https://github.com/marko-js/tags/commit/a26155113ad96296e784674f517a6ccf7ba05b2d))
+
+
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.1.0...@marko-tags/subscribe@0.2.0) (2018-08-24)
 
