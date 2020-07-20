@@ -34,7 +34,7 @@ function marko4Transform(el, ctx) {
   const events = [];
 
   if (ctx.isServerTarget()) {
-    el.forEachAttribute(attr => el.removeAttributeNode(attr));
+    el.removeAllAttributes();
   } else {
     el.forEachAttribute(attr => {
       if (attr.argument) {
