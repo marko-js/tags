@@ -7,7 +7,7 @@ module.exports = function(a, b) {
 
 function marko5Transform(path, t) {
   if (path.hub.file.opts.output === "html") {
-    path.remove();
+    path.set("attributes", []);
   } else {
     const eventsArray = t.arrayExpression([]);
     path.get("attributes").forEach(attr => {
@@ -34,7 +34,7 @@ function marko4Transform(el, ctx) {
   const events = [];
 
   if (ctx.isServerTarget()) {
-    el.detach();
+    el.forEachAttribute(attr => el.removeAttributeNode(attr));
   } else {
     el.forEachAttribute(attr => {
       if (attr.argument) {
