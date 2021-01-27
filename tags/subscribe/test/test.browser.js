@@ -5,8 +5,8 @@ use(require("chai-dom"));
 use(require("sinon-chai"));
 
 const EventEmitter = require("events").EventEmitter;
-const exampleOn = require("./fixtures/example-on");
-const exampleOnce = require("./fixtures/example-once");
+const exampleOn = require("./fixtures/example-on").default;
+const exampleOnce = require("./fixtures/example-once").default;
 
 describe("browser", () => {
   afterEach(cleanup);
@@ -16,7 +16,7 @@ describe("browser", () => {
       const emitter = new EventEmitter();
       const { rerender } = await render(exampleOn, {
         playing: true,
-        emitter
+        emitter,
       });
 
       const pongSpy = sinon.spy();
@@ -28,7 +28,7 @@ describe("browser", () => {
 
       await rerender({
         playing: false,
-        emitter
+        emitter,
       });
 
       emitter.emit("ping", "a", "b", "c");
@@ -40,7 +40,7 @@ describe("browser", () => {
 
       await render(exampleOn, {
         playing: true,
-        emitter
+        emitter,
       });
 
       const pongSpy = sinon.spy();
@@ -62,7 +62,7 @@ describe("browser", () => {
 
       const { rerender } = await render(exampleOn, {
         playing: true,
-        emitter: emitter1
+        emitter: emitter1,
       });
 
       const pongSpy1 = sinon.spy();
@@ -78,7 +78,7 @@ describe("browser", () => {
 
       await rerender({
         playing: true,
-        emitter: emitter2
+        emitter: emitter2,
       });
 
       emitter2.emit("ping", "a", "b", "c");
@@ -94,7 +94,7 @@ describe("browser", () => {
 
       await render(exampleOnce, {
         playing: true,
-        emitter
+        emitter,
       });
 
       const pongSpy = sinon.spy();

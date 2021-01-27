@@ -1,9 +1,5 @@
 import { getProvider } from '../../helpers'
 
-static const EMPTY_OBJECT = {};
-
-static const noop = function() {};
-
 class {
   sync(state) {
     this.setState(state);
@@ -13,29 +9,29 @@ class {
     this.sync = this.sync.bind(this);
   }
   onInput(input, out) {
-    var type = input.__from;
+    var from = input.__from;
 
-    if (!type || !type.render) {
+    if (!from || !from.render) {
       throw new Error(
         "Invalid component constructor provided as <context> 'from' attribute. Got: " +
-          type
+          from
       );
     }
 
-    var provider = getProvider(out, type);
+    var provider = getProvider(out, from);
+    this.state = provider ? provider.data : {};
 
-    if (provider) {
-      this.state = provider.data;
-      this.emitToProvider = provider.emit && provider.emit.bind(provider);
+    if (typeof window !== "undefined") {
+      this.sub && this.sub.removeAllListeners();
 
-      if (typeof window !== "undefined") {
-        if (this.sub) this.sub.removeAllListeners();
+      if (provider) {
         this.sub = this.subscribeTo(provider).on("__change", this.sync);
+        this.emitToProvider = provider.emit.bind(provider);
+      } else {
+        this.sub = this.emitToProvider = undefined;
       }
     }
   }
 }
 
-$ const attrs = state || EMPTY_OBJECT;
-$ const emit = component.emitToProvider || noop;
-<${input}(attrs, emit)/>
+<${input.renderBody}(state, component.emitToProvider)/>

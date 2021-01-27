@@ -1,7 +1,7 @@
 const { render, cleanup } = require("@marko/testing-library");
 const { expect, use } = require("chai");
 use(require("sinon-chai"));
-const template = require("../");
+const template = require("../").default;
 
 describe("browser", () => {
   const targetA = document.createElement("div");
@@ -26,7 +26,7 @@ describe("browser", () => {
       renderBody(out) {
         out.text("A");
       },
-      target: targetA.id
+      target: targetA.id,
     }));
   });
 
@@ -44,7 +44,7 @@ describe("browser", () => {
       renderBody(out) {
         out.text("B");
       },
-      target: targetA.id
+      target: targetA.id,
     });
     expect(targetA).has.text("B");
   });
@@ -54,7 +54,7 @@ describe("browser", () => {
       renderBody(out) {
         out.text("A");
       },
-      target: targetB.id
+      target: targetB.id,
     });
     expect(targetA).has.text("");
     expect(targetB).has.text("A");
