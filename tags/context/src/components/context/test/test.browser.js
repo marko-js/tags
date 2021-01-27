@@ -7,13 +7,13 @@ afterEach(cleanup);
 
 describe("browser", () => {
   describe("rendered in the same component", () => {
-    const template = require("./fixtures/same-component");
+    const template = require("./fixtures/same-component").default;
     let container, rerender;
 
     beforeEach(
       async () =>
         ({ container, rerender } = await render(template, {
-          data: "[provided content]"
+          data: "[provided content]",
         }))
     );
 
@@ -30,12 +30,12 @@ describe("browser", () => {
   });
 
   describe("rendered in two separate components", () => {
-    const template = require("./fixtures/external-components");
+    const template = require("./fixtures/external-components").default;
     let container, rerender, component;
 
     beforeEach(async () => {
       ({ container, rerender, getByTestId } = await render(template, {
-        data: "[provided content]"
+        data: "[provided content]",
       }));
       component = getComponentForEl(getByTestId("root"));
     });
@@ -64,12 +64,13 @@ describe("browser", () => {
   });
 
   describe("rendered in two separate components with from as a constructor", () => {
-    const template = require("./fixtures/external-components-from-as-constructor");
+    const template = require("./fixtures/external-components-from-as-constructor")
+      .default;
     let container, rerender, component;
 
     beforeEach(async () => {
       ({ container, rerender, getByTestId } = await render(template, {
-        data: "[provided content]"
+        data: "[provided content]",
       }));
       component = getComponentForEl(getByTestId("root"));
     });
@@ -98,12 +99,12 @@ describe("browser", () => {
   });
 
   describe("rendered with multiple context components", () => {
-    const template = require("./fixtures/multiple-context-components");
+    const template = require("./fixtures/multiple-context-components").default;
     let container, rerender, component;
 
     beforeEach(async () => {
       ({ container, rerender, getByTestId } = await render(template, {
-        data: "[provided content]"
+        data: "[provided content]",
       }));
       component = getComponentForEl(getByTestId("root"));
     });
@@ -141,13 +142,13 @@ describe("browser", () => {
   });
 
   describe("rendered in two distant components", () => {
-    const template = require("./fixtures/distant-components");
+    const template = require("./fixtures/distant-components").default;
     let container, rerender, component;
 
     beforeEach(async () => {
       ({ container, rerender, getByTestId } = await render(template, {
         data: "[provided content]",
-        show: true
+        show: true,
       }));
       component = getComponentForEl(getByTestId("root"));
     });
@@ -165,7 +166,7 @@ describe("browser", () => {
       );
     });
 
-    it("updates context on middle rerender", done => {
+    it("updates context on middle rerender", (done) => {
       const middle = component.getComponent("middle");
       middle.forceUpdate();
       middle.once("update", () => {
@@ -176,7 +177,7 @@ describe("browser", () => {
       });
     });
 
-    it("updates preserves context when middle ancestors conditionally display", done => {
+    it("updates preserves context when middle ancestors conditionally display", (done) => {
       const middle = component.getComponent("middle");
       middle.input = { show: false };
       middle.once("update", () => {
@@ -192,7 +193,7 @@ describe("browser", () => {
       });
     });
 
-    it("updates context on receiver rerender", done => {
+    it("updates context on receiver rerender", (done) => {
       const receiver = component
         .getComponent("middle")
         .getComponent("receiver");
@@ -207,7 +208,7 @@ describe("browser", () => {
   });
 
   describe("rendered with spread attribute context data", () => {
-    const template = require("./fixtures/spread-context-data");
+    const template = require("./fixtures/spread-context-data").default;
     let container, rerender;
 
     beforeEach(
@@ -226,13 +227,13 @@ describe("browser", () => {
   });
 
   describe("rendered with event handlers", () => {
-    const template = require("./fixtures/event-handler");
+    const template = require("./fixtures/event-handler").default;
     let container, rerender, getByText;
 
     beforeEach(
       async () =>
         ({ container, rerender, getByText } = await render(template, {
-          data: "[provided content]"
+          data: "[provided content]",
         }))
     );
 

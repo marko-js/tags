@@ -1,7 +1,7 @@
 const assert = require("assert");
 const sinon = require("sinon");
 const { render } = require("@marko/testing-library");
-const template = require("../");
+const template = require("../").default;
 
 describe("server", () => {
   it("renders with all queries false", async () => {
@@ -11,15 +11,15 @@ describe("server", () => {
       queries: {
         mobile: "(max-width: 767px)",
         tablet: "(min-width: 768px) and (max-width: 1024px)",
-        desktop: "(min-width: 1025px)"
-      }
+        desktop: "(min-width: 1025px)",
+      },
     });
 
     assert.ok(
       renderBodySpy.firstCall.calledWith(sinon.match.any, {
         mobile: false,
         tablet: false,
-        desktop: false
+        desktop: false,
       })
     );
   });

@@ -2,11 +2,11 @@ const sinon = require("sinon");
 const { render, cleanup } = require("@marko/testing-library");
 const { expect, use } = require("chai");
 use(require("sinon-chai"));
-const template = require("../");
+const template = require("../").default;
 const SIZES = {
   desktop: "1025px",
   tablet: "768px",
-  mobile: "767px"
+  mobile: "767px",
 };
 
 describe("browser", () => {
@@ -27,8 +27,8 @@ describe("browser", () => {
       queries: {
         mobile: "(max-width: 767px)",
         tablet: "(min-width: 768px) and (max-width: 1024px)",
-        desktop: "(min-width: 1025px)"
-      }
+        desktop: "(min-width: 1025px)",
+      },
     });
 
     rerender = renderResult.rerender;
@@ -45,7 +45,7 @@ describe("browser", () => {
     expect(renderBodySpy).calledOnceWith(sinon.match.any, {
       desktop: true,
       tablet: false,
-      mobile: false
+      mobile: false,
     });
   });
 
@@ -55,7 +55,7 @@ describe("browser", () => {
     expect(renderBodySpy).calledWith(sinon.match.any, {
       desktop: false,
       tablet: true,
-      mobile: false
+      mobile: false,
     });
   });
 
@@ -65,7 +65,7 @@ describe("browser", () => {
     expect(renderBodySpy).calledWith(sinon.match.any, {
       desktop: false,
       tablet: false,
-      mobile: true
+      mobile: true,
     });
   });
 
@@ -74,22 +74,22 @@ describe("browser", () => {
       renderBody: renderBodySpy,
       queries: {
         landscape: "(orientation: landscape)",
-        portrait: "(orientation: portrait)"
-      }
+        portrait: "(orientation: portrait)",
+      },
     });
 
     expect(renderBodySpy).calledWith(sinon.match.any, {
       landscape: true,
-      portrait: false
+      portrait: false,
     });
   });
 });
 
 function waitFrames(win, count) {
   if (count)
-    return new Promise(resolve => win.requestAnimationFrame(resolve)).then(() =>
-      waitFrames(win, count - 1)
-    );
+    return new Promise((resolve) =>
+      win.requestAnimationFrame(resolve)
+    ).then(() => waitFrames(win, count - 1));
 
   return Promise.resolve();
 }

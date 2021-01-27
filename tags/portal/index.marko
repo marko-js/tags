@@ -1,34 +1,32 @@
 import targetTemplate from './target'
 
 class {
-    onMount() {
-        this.target = this.getTarget(this.input.target);
-        this.component = targetTemplate
-            .renderSync(this.input)
-            .appendTo(this.target)
-            .getComponent();
-    }
-    onInput(newInput) {
-        var component = this.component;
-        if (component) {
-            var target = this.getTarget(newInput.target);
+    onRender(out) {
+        if (typeof window === "object") {
+            var input = this.input;
+            var prevTarget = this.target;
+            var newTarget = (this.target =
+                typeof input.target === "string"
+                    ? document.getElementById(input.target)
+                    : input.target || document.body);
 
-            if (target !== this.target) {
-                component.appendTo(target);
-                this.target = target;
+            if (prevTarget === newTarget) {
+                this.portal.input = input;
+            } else {
+                var portalOut = out.createOut().once(
+                    "finish",
+                    function(result) {
+                        this.portal && this.portal.destroy();
+                        this.portal = result.appendTo(newTarget).getComponent();
+                    }.bind(this)
+                );
+                portalOut.sync();
+                targetTemplate.render(input, portalOut).end();
             }
-
-            component.input = newInput;
         }
-    }
-    getTarget(target) {
-        if (typeof target === "string") {
-            target = document.getElementById(target);
-        }
-        return target || document.body;
     }
     onDestroy() {
-        this.component.destroy();
+        this.portal.destroy();
     }
 }
 
