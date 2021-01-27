@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/marko-js/tags/compare/@marko-tags/context@2.1.1...@marko-tags/context@2.2.0) (2021-01-27)
+
+
+### Features
+
+* improve Marko 5 support ([#36](https://github.com/marko-js/tags/issues/36)) ([8880034](https://github.com/marko-js/tags/commit/88800342922709b88930863a864869c711386c3c))
+
+
+
+
+
 ## [2.1.1](https://github.com/marko-js/tags/compare/@marko-tags/context@2.1.0...@marko-tags/context@2.1.1) (2020-04-17)
 
 
