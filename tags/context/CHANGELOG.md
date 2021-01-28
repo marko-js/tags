@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/marko-js/tags/compare/@marko-tags/context@2.2.0...@marko-tags/context@2.2.1) (2021-01-28)
+
+
+### Bug Fixes
+
+* **context:** issue with receiving missing context at the root level ([#37](https://github.com/marko-js/tags/issues/37)) ([bc350d7](https://github.com/marko-js/tags/commit/bc350d748b685016c7785a067f31d8f813a8755d))
+
+
+
+
+
 # [2.2.0](https://github.com/marko-js/tags/compare/@marko-tags/context@2.1.1...@marko-tags/context@2.2.0) (2021-01-27)
 
 
