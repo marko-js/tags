@@ -11,6 +11,15 @@ describe("server", () => {
     expect(container).has.text("[receiver content][provided content]");
   });
 
+  it("renders in the same component without any provided context", async () => {
+    const template = require("./fixtures/context-not-provided-same-component")
+      .default;
+    const { container } = await render(template, {
+      data: "[provided content]",
+    });
+    expect(container).has.text("[receiver content][provided nothing]");
+  });
+
   it("renders in two separate components", async () => {
     const template = require("./fixtures/external-components").default;
     const { container } = await render(template, {
