@@ -198,7 +198,7 @@ To access the current ancestor of the same type you can use `from="."`. Here is 
 **router.marko**
 
 ```marko
-<context({ remaining = location.href }) from=".">
+<context|{ remaining = location.href }| from=".">
   <-- Here we have access to an ancestor route context. -->
   $ const match = matchRoute(remaining, input.routes);
   <context remaining=match.remaining>
