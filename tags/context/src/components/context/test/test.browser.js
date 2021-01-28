@@ -29,6 +29,18 @@ describe("browser", () => {
     });
   });
 
+  describe("rendered in the same component without any provided context", () => {
+    const template = require("./fixtures/context-not-provided-same-component")
+      .default;
+    let container;
+
+    beforeEach(async () => ({ container } = await render(template, {})));
+
+    it("renders properly", () => {
+      expect(container).has.text("[receiver content][provided nothing]");
+    });
+  });
+
   describe("rendered in two separate components", () => {
     const template = require("./fixtures/external-components").default;
     let container, rerender, component;

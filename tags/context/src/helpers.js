@@ -25,7 +25,7 @@ exports.pushProvider = function (out, component) {
 };
 
 exports.getProvider = function (out, provider) {
-  return out[CONTEXT_KEY][provider.__providerId];
+  return out[CONTEXT_KEY] && out[CONTEXT_KEY][provider.__providerId];
 };
 
 function bindSubtreeContextOnBeginAsync(event) {
