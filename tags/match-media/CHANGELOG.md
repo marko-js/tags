@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.1.1...@marko-tags/match-media@1.2.0) (2021-02-23)
+
+
+### Bug Fixes
+
+* peer dependency support Marko 5 ([925f991](https://github.com/marko-js/tags/commit/925f991fea948b01d696b75e7df5e7b3e8a1159c))
+
+
+### Features
+
+* improve Marko 5 support ([#36](https://github.com/marko-js/tags/issues/36)) ([8880034](https://github.com/marko-js/tags/commit/88800342922709b88930863a864869c711386c3c))
+
+
+
+
+
 ## [1.1.1](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.1.0...@marko-tags/match-media@1.1.1) (2020-01-08)
 
 

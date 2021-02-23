@@ -1,7 +1,7 @@
 {
   "name": "@marko-tags/context",
   "description": "Share data through arbitrarily deep Marko components.",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "author": "Dylan Piercey <dpiercey@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [
