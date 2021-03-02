@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.2.0...@marko-tags/match-media@1.2.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* **match-media:** no longer use process api ([6022eb5](https://github.com/marko-js/tags/commit/6022eb53ca903dd501162df4c1e929fcd4c49a76))
+
+
+
+
+
 # [1.2.0](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.1.1...@marko-tags/match-media@1.2.0) (2021-02-23)
 
 
