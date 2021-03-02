@@ -8,7 +8,7 @@ class {
   }
 
   onRender() {
-    if (!process.browser) return;
+    if (typeof window === "undefined") return;
 
     var component = this;
     var matches = this.matches;
