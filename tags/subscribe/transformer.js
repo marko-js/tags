@@ -1,16 +1,16 @@
 const onFormatDash = /^(on(?:ce)?)-(.+)/;
 const onFormatCamel = /^(on(?:ce)?)([A-Z])(.*)/;
 
-module.exports = function (a, b) {
+module.exports = function(a, b) {
   (a.hub ? marko5Transform : marko4Transform)(a, b);
 };
 
 function marko5Transform(path, t) {
-  if (path.hub.file.opts.output === "html") {
+  if (path.hub.file.markoOpts.output === "html") {
     path.set("attributes", []);
   } else {
     const eventsArray = t.arrayExpression([]);
-    path.get("attributes").forEach((attr) => {
+    path.get("attributes").forEach(attr => {
       if (attr.get("arguments").length) {
         const { type, event } = getTypeAndEvent(attr.get("name").node);
         if (type) {
@@ -36,7 +36,7 @@ function marko4Transform(el, ctx) {
   if (ctx.isServerTarget()) {
     el.removeAllAttributes();
   } else {
-    el.forEachAttribute((attr) => {
+    el.forEachAttribute(attr => {
       if (attr.argument) {
         const { type, event } = getTypeAndEvent(attr.name);
         if (type) {
@@ -64,6 +64,6 @@ function getTypeAndEvent(attrName) {
 
   return {
     type,
-    event,
+    event
   };
 }
