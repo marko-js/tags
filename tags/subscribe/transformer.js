@@ -30,9 +30,9 @@ function marko5Transform(path, t) {
         )
       );
     }
-
-    path.pushContainer("attributes", t.markoAttribute("__events", eventsArray));
   });
+
+  path.pushContainer("attributes", t.markoAttribute("__events", eventsArray));
 }
 
 function marko4Transform(el, ctx) {
