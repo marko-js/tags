@@ -6,27 +6,33 @@ module.exports = function (a, b) {
 };
 
 function marko5Transform(path, t) {
-  if (path.hub.file.markoOpts.output === "html") {
-    path.set("attributes", []);
-  } else {
-    const eventsArray = t.arrayExpression([]);
-    path.get("attributes").forEach((attr) => {
-      if (attr.get("arguments").length) {
-        const { type, event } = getTypeAndEvent(attr.get("name").node);
-        if (type) {
-          eventsArray.elements.push(
-            t.stringLiteral(type),
-            t.stringLiteral(event)
-          );
-        }
+  const eventsArray = t.arrayExpression([]);
+  path.get("attributes").forEach((attr) => {
+    if (attr.get("arguments").length) {
+      const { type, event } = getTypeAndEvent(attr.get("name").node);
+      if (type) {
+        eventsArray.elements.push(
+          t.stringLiteral(type),
+          t.stringLiteral(event)
+        );
       }
-
-      path.pushContainer(
-        "attributes",
-        t.markoAttribute("__events", eventsArray)
+    } else if (attr.node.name === "to") {
+      attr.set(
+        "value",
+        t.logicalExpression(
+          "&&",
+          t.binaryExpression(
+            "===",
+            t.unaryExpression("typeof", t.identifier("window")),
+            t.stringLiteral("object")
+          ),
+          attr.node.value
+        )
       );
-    });
-  }
+    }
+  });
+
+  path.pushContainer("attributes", t.markoAttribute("__events", eventsArray));
 }
 
 function marko4Transform(el, ctx) {
