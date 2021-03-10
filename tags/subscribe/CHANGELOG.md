@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.4.2...@marko-tags/subscribe@0.4.3) (2021-03-10)
+
+
+### Bug Fixes
+
+* **subscribe:** changed transformer to have same client/server code ([#40](https://github.com/marko-js/tags/issues/40)) ([e539a28](https://github.com/marko-js/tags/commit/e539a2803f914a72ccecf5d6e52429a5eee9d84b))
+
+
+
+
+
 ## [0.4.2](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.4.1...@marko-tags/subscribe@0.4.2) (2021-03-03)
 
 
