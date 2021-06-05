@@ -1,0 +1,17 @@
+<let default="1"/>
+$ function runE() {
+  if (myState === "1") {
+    myState = "2";
+  } else {
+    myState = "1";
+  }
+}
+$ function handleSomethingElse() {
+  this.something = true;
+}
+<div>
+  <div id="container">${myState}</div>
+  <button key="button" onMouseOver(handleSomethingElse) onClick(runE)>
+    Switch
+  </button>
+</div>

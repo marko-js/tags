@@ -1,0 +1,13 @@
+{
+  "transformer": "./transformer.js",
+  "code-generator": "./translator.js",
+  "autocomplete": [
+    {
+      "snippet": "let/${1:variable}",
+      "description": "Used to create an inline controllable state"
+    },
+    {
+      "snippet": "let/${1:variable} = ${object}"
+    }
+  ]
+}

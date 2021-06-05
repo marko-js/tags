@@ -1,0 +1,6 @@
+{
+  "tags-dir": "./src/components",
+  "<*>": {
+    "transformer": "./src/tagvars/transformer.js"
+  }
+}

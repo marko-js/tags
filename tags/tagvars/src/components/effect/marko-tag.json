@@ -1,0 +1,5 @@
+{
+  "template": "./index.marko",
+  "transformer": "./transformer.js",
+  "code-generator": "./translator.js"
+}

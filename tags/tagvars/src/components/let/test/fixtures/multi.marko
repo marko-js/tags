@@ -1,0 +1,13 @@
+<let default=input.value/>
+<let default=input.value2/>
+$ function runE() {
+  otherState--;
+  myState++;
+}
+<div>
+  <div id="container">
+    <div id="1">${myState}</div>
+    <div id="2">${otherState || 2}</div>
+  </div>
+  <button key="button" onClick(runE)>Increment</button>
+</div>
