@@ -18,7 +18,7 @@ function marko5Translate(path, t) {
 
   const tagVar = path.get("var");
 
-  if (!tagVar) {
+  if (!tagVar.node) {
     throw path
       .get("name")
       .buildCodeFrameError("let requires a variable to be assigned to.");

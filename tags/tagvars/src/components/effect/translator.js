@@ -19,7 +19,6 @@ module.exports = function (a, b) {
 };
 
 function marko5Translate(path, t) {
-  path.hub.file.path.scope.crawl();
   const isServer = path.hub.file.markoOpts.output === "html";
   if (isServer) {
     path.remove();

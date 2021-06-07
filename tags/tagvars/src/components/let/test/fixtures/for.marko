@@ -1,5 +1,5 @@
 <for|item| of=[1, 2, 3]>
-  <let default=item/>
+  <let/myState=item/>
   <div>
     <div id=item>${myState}</div>
     <button key="button" onClick(() => myState++)>Increment</button>

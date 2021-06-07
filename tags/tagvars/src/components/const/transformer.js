@@ -15,7 +15,7 @@ function marko5Transform(path, t) {
       .buildCodeFrameError("const requires being assigned a value.");
   }
 
-  if (!tagVar) {
+  if (!tagVar.node) {
     throw path
       .get("name")
       .buildCodeFrameError("const requires a variable to be assigned to.");

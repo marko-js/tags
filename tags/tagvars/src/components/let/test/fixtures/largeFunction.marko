@@ -1,6 +1,6 @@
-<let default=1/>
-<let default=2/>
-<let default=2/>
+<let/myState=1/>
+<let/otherState=2/>
+<let/evenOneMore=2/>
 $ function outerCall(myState, otherState) {
   if (myState + otherState > 5) {
     evenOneMore = myState + otherState - 5;
@@ -9,7 +9,6 @@ $ function outerCall(myState, otherState) {
   }
 }
 $ function runE(passedArg, otherPassed) {
-  debugger;
   if (otherPassed > passedArg) {
     myState += 2;
   } else if (otherState >= 3) {

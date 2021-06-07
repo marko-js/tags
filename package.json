@@ -5,7 +5,6 @@
     "@commitlint/config-lerna-scopes": "^11.0.0",
     "@marko/babel-utils": "5.10.2",
     "@marko/compiler": "^5.10.2",
-    "@marko/prettyprint": "^2.2.3",
     "@marko/test": "^8.0.6",
     "@marko/testing-library": "^4.0.3",
     "chai": "^4.2.0",
@@ -30,14 +29,10 @@
     "*.{js,json,md}": [
       "prettier --write",
       "git add"
-    ],
-    "*.marko": [
-      "marko-prettyprint",
-      "git add"
     ]
   },
   "scripts": {
-    "format": "prettier \"**/*.{json,md,js}\" --write && marko-prettyprint ./tags",
+    "format": "prettier \"**/*.{json,md,js}\" --write",
     "postinstall": "lerna bootstrap --hoist",
     "publish": "lerna publish",
     "test": "cross-env NODE_OPTIONS='--enable-source-maps' marko-test",
