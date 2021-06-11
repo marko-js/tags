@@ -1,72 +1,56 @@
-module.exports = function (component, key, fn, deps) {
-  patchLifecycle(component);
+module.exports = function (component, fn, deps) {
+  // Effect meta data stored in an array of [fn, deps, changed]
+  var meta = component.___effectMeta;
+  var index = component.___effectIndex;
 
-  var lookup = (component.___effects = component.___effects || {});
-  var previous = lookup[key];
+  if (!meta) {
+    patchLifecycle(component);
+    component.___effectMeta = meta = [];
+    component.___effectIndex = 3;
+    index = 0;
+  } else {
+    component.___effectIndex += 3;
+  }
 
-  if (previous) {
-    var different = false;
+  var previousDeps = meta[index + 1];
+
+  if (previousDeps) {
     for (var i = 0; i < deps.length; i++) {
-      if (deps[i] !== previous.deps[i]) {
-        different = true;
+      if (deps[i] !== previousDeps[i]) {
+        meta[index] && meta[index](); // run cleanup
+        meta[index] = fn; // save new effect function
+        meta[index + 2] = 1; // mark effect as changed
         break;
       }
     }
-    if (!different) {
-      return;
-    } else if (previous.cleanup) {
-      previous.cleanup();
-    }
+  } else {
+    meta.push(fn, deps, 1);
   }
-
-  lookup[key] = {
-    fn: fn,
-    deps: deps,
-  };
 };
 
 function patchLifecycle(component) {
-  var proto = Object.getPrototypeOf(component);
-  if (!proto.___hasEffects) {
-    proto.___hasEffects = true;
-    var originalMount = proto.onMount;
-    var originalUpdate = proto.onUpdate;
-    var originalDestroy = proto.onDestroy;
-    proto.onMount = function () {
-      originalMount && originalMount.apply(this, arguments);
-      runEffect.call(this);
-    };
-    proto.onUpdate = function () {
-      originalUpdate && originalUpdate.apply(this, arguments);
-      runEffect.call(this);
-    };
-    proto.onDestroy = function () {
-      originalDestroy && originalDestroy.apply(this, arguments);
-      runCleanup.call(this);
-    };
+  var proto = component.__proto__;
+  if (proto.onMount !== runEffects) {
+    proto.onMount = proto.onUpdate = runEffects;
+    proto.onDestroy = runCleanups;
   }
 }
 
-function runEffect() {
-  var effects = this.___effects;
-  var keys = Object.keys(effects);
-  for (var i = 0; i < keys.length; i++) {
-    var effect = effects[keys[i]];
-    if (effect.fn) {
-      effect.cleanup = effect.fn();
-      delete effect.fn;
+function runEffects() {
+  this.___effectIndex = 0;
+  var meta = this.___effectMeta;
+  for (var i = 0; i < meta.length; i += 3) {
+    if (meta[i + 2]) {
+      // check if effect has changed
+      meta[i + 2] = 0; // mark effect as not changed
+      meta[i] = meta[i](); // execute effect and save cleanup
     }
   }
 }
 
-function runCleanup() {
-  var effects = this.___effects;
-  var keys = Object.keys(effects);
-  for (var i = 0; i < keys.length; i++) {
-    var cleanup = effects[keys[i]].cleanup;
-    if (cleanup) {
-      cleanup();
-      delete effects[keys[i]].cleanup;
-    }
+function runCleanups() {
+  var meta = this.___effectMeta;
+  for (var i = 0; i < meta.length; i += 3) {
+    meta[i] && meta[i](); // run cleanup
   }
 }

@@ -1,5 +1,4 @@
 {
-  "template": "./index.marko",
-  "transformer": "./transformer.js",
-  "code-generator": "./translator.js"
+  "transformer": "../_component/ensure-lifecycle",
+  "code-generator": "./translator"
 }

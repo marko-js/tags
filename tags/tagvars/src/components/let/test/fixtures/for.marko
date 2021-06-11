@@ -2,6 +2,29 @@
   <let/myState=item/>
   <div>
     <div id=item>${myState}</div>
-    <button key="button" onClick(() => myState++)>Increment</button>
+    <button/$button onClick(() => myState++)>Increment</button>
+    <effect=(() => {
+      console.log(myState, $button);
+
+    })/>
   </div>
 </for>
+
+<!-- <for|item| of=[1, 2, 3]>
+  <_component|_componentDef0, _component0, _state0|>
+    $ !("myState" in _state0) && _state0.myState = item;
+    $ const $button = "0";
+
+    <div>
+      <div id=item>${_state0.myState}</div>
+      <button key=$button onClick(() => {
+        _component0.setState("myState", _state0.myState + 1)
+      })>Increment</button>
+    </div>
+
+    $ effect(_component0, () => {
+      console.log(myState, _component0.getEl($button));
+    }, [myState])
+  </>
+</for> -->
+

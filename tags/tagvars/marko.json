@@ -1,6 +1,7 @@
 {
-  "tags-dir": "./src/components",
+  "taglibId": "@marko/tag-api-preview",
+  "tagsDir": "./src/components",
   "<*>": {
-    "transformer": "./src/tagvars/transformer.js"
+    "transformer": "./src/global/var-transformer.js"
   }
 }
