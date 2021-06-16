@@ -5,8 +5,7 @@ module.exports = function getClosestMeta(tag) {
   do {
     if (root.isProgram()) {
       return {
-        componentDef: root.hub.file._componentDefIdentifier,
-        component: root.hub.file._componentInstanceIdentifier,
+        component: t.identifier("component"),
         state: t.identifier("state"),
         extra: getExtra(root),
       };

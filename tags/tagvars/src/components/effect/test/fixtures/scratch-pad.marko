@@ -1,0 +1,10 @@
+<test|a|>
+  <let/count=0/>
+  <const/message=input.message.y.x/>
+  <const/{ other: { thing } }=input.testing/>
+  <const/staticThing=1/>
+  <effect=(() => {
+    input.fn(`applied ${message} ${count} ${a} ${b.x} ${window.test} ${staticThing} ${thing}`);
+    return () => input.fn(`cleaned ${message}`);
+  })/>
+</test>

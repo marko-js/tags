@@ -3,28 +3,27 @@ module.exports = function (component, fn, deps) {
   var meta = component.___effectMeta;
   var index = component.___effectIndex;
 
-  if (!meta) {
-    patchLifecycle(component);
-    component.___effectMeta = meta = [];
-    component.___effectIndex = 3;
-    index = 0;
-  } else {
-    component.___effectIndex += 3;
-  }
-
-  var previousDeps = meta[index + 1];
-
-  if (previousDeps) {
-    for (var i = 0; i < deps.length; i++) {
-      if (deps[i] !== previousDeps[i]) {
-        meta[index] && meta[index](); // run cleanup
-        meta[index] = fn; // save new effect function
-        meta[index + 2] = 1; // mark effect as changed
-        break;
+  if (meta) {
+    if (index === undefined) {
+      meta.push(fn, deps, 1);
+    } else {
+      component.___effectIndex += 3;
+      if (deps) {
+        var previousDeps = meta[index + 1];
+        for (var i = 0; i < deps.length; i++) {
+          if (deps[i] !== previousDeps[i]) {
+            if (meta[index]) meta[index](); // run cleanup
+            meta[index] = fn; // save new effect function
+            meta[index + 1] = deps; // save new deps
+            meta[index + 2] = 1; // mark effect as changed
+            break;
+          }
+        }
       }
     }
   } else {
-    meta.push(fn, deps, 1);
+    patchLifecycle(component);
+    component.___effectMeta = [fn, deps, 1];
   }
 };
 

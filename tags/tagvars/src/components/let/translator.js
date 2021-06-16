@@ -1,88 +1,89 @@
-const getClosestMeta = require("../_component/get-closest-meta");
+const getClosestMeta = require("../../util/get-closest-meta");
+const deepFreeze = require("../../util/deep-freeze/transform");
 
-module.exports = function translate(path, t) {
-  const { file } = path.hub;
+module.exports = function translate(tag, t) {
+  const { file } = tag.hub;
   const server = file.markoOpts.output === "html";
-  const defaultAttr = path
-    .get("attributes")
-    .find((attr) => attr.node.name === "default");
+  const tagVar = tag.node.var;
+  const defaultAttr = tag.node.attributes.find((it) => it.name === "default");
 
-  const tagVar = path.get("var");
-
-  if (!tagVar.node) {
-    throw path
+  if (!tagVar) {
+    throw tag
       .get("name")
-      .buildCodeFrameError("let requires a variable to be assigned to.");
+      .buildCodeFrameError("<let> requires a variable to be assigned to.");
+  }
+
+  if (!defaultAttr) {
+    throw tag
+      .get("name")
+      .buildCodeFrameError("<let> must be initialized with a value.");
   }
 
   if (server) {
-    path.replaceWith(
+    tag.replaceWith(
       t.variableDeclaration("const", [
-        t.variableDeclarator(
-          tagVar.node,
-          defaultAttr ? defaultAttr.node.value : t.nullLiteral()
-        ),
+        t.variableDeclarator(tagVar, deepFreeze(file, defaultAttr.value)),
       ])
     );
   } else {
     file.path.scope.crawl();
 
-    const meta = getClosestMeta(path);
-    const binding = path.scope.getBinding(tagVar.node.name);
+    const meta = getClosestMeta(tag);
+    const binding = tag.scope.getBinding(tagVar.name);
 
-    binding.constantViolations.forEach((path) => {
-      path.replaceWith(
+    binding.constantViolations.forEach((assignment) => {
+      assignment.replaceWith(
         t.callExpression(
           t.memberExpression(meta.component, t.identifier("setState")),
           [
-            tagVar.node,
-            t.isUpdateExpression(path.node)
+            tagVar,
+            t.isUpdateExpression(assignment.node)
               ? t.binaryExpression(
-                  path.node.operator === "++" ? "+" : "-",
-                  t.memberExpression(meta.state, tagVar.node, true),
+                  assignment.node.operator === "++" ? "+" : "-",
+                  t.memberExpression(meta.state, tagVar, true),
                   t.numericLiteral(1)
                 )
-              : path.node.operator === "="
-              ? path.node.right
+              : assignment.node.operator === "="
+              ? deepFreeze(file, assignment.node.right)
               : t.binaryExpression(
-                  path.node.operator.slice(0, -1),
-                  t.memberExpression(meta.state, tagVar.node, true),
-                  path.node.right
+                  assignment.node.operator.slice(0, -1),
+                  t.memberExpression(meta.state, tagVar, true),
+                  deepFreeze(file, assignment.node.right)
                 ),
           ]
         )
       );
     });
 
-    binding.referencePaths.forEach((path) => {
-      if (!t.isUpdateExpression(path.node)) {
-        path.replaceWith(t.memberExpression(meta.state, tagVar.node, true));
+    binding.referencePaths.forEach((ref) => {
+      if (!t.isUpdateExpression(ref.node)) {
+        ref.replaceWith(t.memberExpression(meta.state, tagVar, true));
       }
     });
 
     const stateVar = t.variableDeclaration("var", [
       t.variableDeclarator(
-        tagVar.node,
+        tagVar,
         t.stringLiteral("" + meta.extra.___stateIndex++)
       ),
     ]);
 
     if (!defaultAttr) {
-      path.replaceWith(stateVar);
+      tag.replaceWith(stateVar);
     } else {
-      path.replaceWithMultiple([
+      tag.replaceWithMultiple([
         stateVar,
         t.expressionStatement(
           t.logicalExpression(
             "&&",
             t.unaryExpression(
               "!",
-              t.binaryExpression("in", tagVar.node, meta.state)
+              t.binaryExpression("in", tagVar, meta.state)
             ),
             t.assignmentExpression(
               "=",
-              t.memberExpression(meta.state, tagVar.node, true),
-              defaultAttr.node.value
+              t.memberExpression(meta.state, tagVar, true),
+              deepFreeze(file, defaultAttr.value)
             )
           )
         ),

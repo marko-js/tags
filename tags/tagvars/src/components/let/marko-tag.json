@@ -1,5 +1,5 @@
 {
-  "transformer": "../_component/ensure-lifecycle",
+  "transformer": "../../util/ensure-lifecycle",
   "code-generator": "./translator",
   "autocomplete": [
     {

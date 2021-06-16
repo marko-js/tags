@@ -1,78 +1,32 @@
-const sinon = require("sinon");
-const { render, cleanup } = require("@marko/testing-library");
 const { expect, use } = require("chai");
+const { spy, resetHistory } = require("sinon");
+const { render, screen, fireEvent } = require("@marko/testing-library");
+const Basic = require("./fixtures/basic.marko").default;
+
 use(require("chai-dom"));
 use(require("sinon-chai"));
 
-const effect = require("./fixtures/effect.marko").default;
-
 describe("browser", () => {
-  afterEach(cleanup);
+  it("basic", async () => {
+    const onCount = spy();
+    const onCleanup = spy();
+    const { rerender, cleanup } = await render(Basic, { onCount, onCleanup });
+    const btn = screen.getByText("increment");
 
-  describe("effect", () => {
-    it("fires on mount & cleans up", async () => {
-      const spy = sinon.spy();
-      await render(effect, {
-        fn: spy,
-        message: "foo",
-      });
+    expect(onCount).calledOnceWith(0);
+    expect(onCleanup).has.not.been.called;
+    resetHistory();
 
-      expect(spy).calledOnceWith("applied foo");
+    await fireEvent.click(btn);
+    expect(onCount).calledOnceWith(1);
+    expect(onCleanup).has.been.calledOnce;
+    resetHistory();
 
-      spy.resetHistory();
-      await cleanup();
+    await rerender();
+    expect(onCount).has.not.been.called;
+    expect(onCleanup).has.not.been.called;
 
-      expect(spy).calledOnceWith("cleaned foo");
-    });
-
-    it("fires & cleans up on updates", async () => {
-      const spy = sinon.spy();
-      const { rerender } = await render(effect, {
-        fn: spy,
-        message: "foo",
-      });
-
-      expect(spy).calledOnceWith("applied foo");
-
-      spy.resetHistory();
-      await rerender({
-        fn: spy,
-        message: "bar",
-      });
-
-      expect(spy).callCount(2);
-      expect(spy).calledWith("cleaned foo");
-      expect(spy).calledWith("applied bar");
-
-      spy.resetHistory();
-      await cleanup();
-
-      expect(spy).calledOnceWith("cleaned bar");
-    });
-
-    it("does not fire on irrelevant updates", async () => {
-      const spy = sinon.spy();
-      const { rerender } = await render(effect, {
-        fn: spy,
-        message: "foo",
-        count: 0,
-      });
-
-      expect(spy).calledOnceWith("applied foo");
-
-      spy.resetHistory();
-      await rerender({
-        fn: spy,
-        message: "foo",
-        count: 1,
-      });
-
-      expect(spy).callCount(0);
-
-      spy.resetHistory();
-      await cleanup();
-
-      expect(spy).calledOnceWith("cleaned foo");
-    });
+    cleanup();
+    expect(onCleanup).has.been.calledOnce;
   });
 });

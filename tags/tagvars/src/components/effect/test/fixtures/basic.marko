@@ -1,0 +1,9 @@
+<let/count=0/>
+
+<button onClick=(() => count++)>increment</button>
+
+<effect=(() => {
+  debugger;
+  input.onCount(count);
+  return input.onCleanup;
+})/>

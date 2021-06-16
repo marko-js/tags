@@ -1,7 +1,7 @@
 <for|item| of=[1, 2, 3]>
   <let/myState=item/>
   <div>
-    <div id=item>${myState}</div>
+    <div>${myState}</div>
     <button/$button onClick(() => myState++)>Increment</button>
     <effect=(() => {
       console.log(myState, $button);

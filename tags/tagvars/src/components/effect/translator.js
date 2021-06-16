@@ -1,40 +1,30 @@
 const { importDefault } = require("@marko/babel-utils");
 const helperPath = require.resolve("./helper");
-const depsVisitor = {
-  MemberExpression(path, deps) {
-    const name = path.node.object.name;
-    if (name === "input" || name === "state") {
-      deps.push(path.node);
-    }
-  },
-  Function(path) {
-    path.skip();
-  },
-};
 
 module.exports = function translate(tag, t) {
   const { file } = tag.hub;
-  const defaultAttr = tag
-    .get("attributes")
-    .find((attr) => attr.node.name === "default");
-
-  if (!defaultAttr.node) {
-    throw tag
-      .get("name")
-      .buildCodeFrameError("effect requires being assigned a value.");
-  }
 
   if (file.markoOpts.output === "html") {
     tag.remove();
-  } else {
-    const deps = [];
-    defaultAttr.get("value").traverse(depsVisitor, deps);
-    tag.replaceWith(
-      t.callExpression(importDefault(file, helperPath, "effect"), [
-        file._componentInstanceIdentifier,
-        defaultAttr.node.value,
-        t.arrayExpression(deps),
-      ])
-    );
+    return;
   }
+
+  const attrs = tag.get("attributes");
+  const depsAttr = attrs.find(byAttrName("_deps"));
+  const args = [
+    file._componentInstanceIdentifier,
+    attrs.find(byAttrName("default")).node.value,
+  ];
+
+  if (depsAttr) {
+    args.push(depsAttr.node.value);
+  }
+
+  tag.replaceWith(
+    t.callExpression(importDefault(file, helperPath, "effect"), args)
+  );
 };
+
+function byAttrName(name) {
+  return (attr) => attr.node.name === name;
+}

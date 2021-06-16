@@ -7,8 +7,13 @@ module.exports = function ensureLifecycle(tag) {
   let root = tag;
   while (
     (root = root.parentPath) !== program &&
-    isNativeTag((root = root.parentPath))
+    (root = root.parentPath).node &&
+    isNativeTag(root)
   );
+
+  if (!root.node) {
+    return;
+  }
 
   if (root === program) {
     if (!addedRootComponent.has(tag.hub)) {

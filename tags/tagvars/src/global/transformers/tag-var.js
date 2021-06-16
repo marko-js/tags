@@ -1,12 +1,10 @@
 const { getTagDef, isNativeTag } = require("@marko/babel-utils");
-const getClosestMeta = require("../components/_component/get-closest-meta");
+const getClosestMeta = require("../../util/get-closest-meta");
+const ensureLifecycle = require("../../util/ensure-lifecycle");
 
 module.exports = (tag, t) => {
-  if (!tag.hub) {
-    throw new Error("The `Tags API` preview is only supported in Marko 5");
-  }
-
-  const tagVar = tag.node.var;
+  const { node } = tag;
+  const tagVar = node.var;
 
   if (!tagVar) {
     return;
@@ -18,10 +16,10 @@ module.exports = (tag, t) => {
   }
 
   if (isNativeTag(tag)) {
+    ensureLifecycle(tag);
+
     const meta = getClosestMeta(tag);
-    const keyAttr = tag
-      .get("attributes")
-      .find((path) => path.node.name === "key");
+    const keyAttr = tag.get("attributes").find(byAttrName("key"));
 
     if (keyAttr) {
       throw keyAttr.buildCodeFrameError(
@@ -54,3 +52,7 @@ module.exports = (tag, t) => {
     }
   }
 };
+
+function byAttrName(name) {
+  return (attr) => attr.node.name === name;
+}

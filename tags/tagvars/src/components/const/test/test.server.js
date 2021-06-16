@@ -1,32 +1,39 @@
-const assert = require("assert");
-const sinon = require("sinon");
-const { render } = require("@marko/testing-library");
 const { expect, use } = require("chai");
-use(require("chai-dom"));
+const { render, screen } = require("@marko/testing-library");
+const Basic = require("./fixtures/basic.marko").default;
+const Destructuring = require("./fixtures/destructuring.marko").default;
+const InputDerived = require("./fixtures/input-derived.marko").default;
+const StateDerived = require("./fixtures/state-derived.marko").default;
+const ErrorMutation = require("./fixtures/error-mutation.marko").default;
 
-const simpleValue = require("./fixtures/simple-value").default;
-const destructure = require("./fixtures/destructuring").default;
-const destructureComplex = require("./fixtures/destructure-complex").default;
-const inputExpression = require("./fixtures/input-expression").default;
+use(require("chai-dom"));
+use(require("chai-as-promised"));
 
 describe("server", () => {
-  it("declares and inserts simple value", async () => {
-    const { container } = await render(simpleValue, {});
-    expect(container).has.text("Hi John");
+  it("basic", async () => {
+    await render(Basic);
+    expect(screen.getByText("Hi John")).to.exist;
   });
 
-  it("handles destructuring", async () => {
-    const { container } = await render(destructure, {});
-    expect(container).has.text("apples oranges bananas");
+  it("destructuring", async () => {
+    await render(Destructuring);
+    expect(screen.getByText("apples oranges bananas")).to.exist;
+    expect(screen.getByText("George R.R. Martin")).to.exist;
   });
 
-  it("handles destructuring assignment", async () => {
-    const { container } = await render(destructureComplex, {});
-    expect(container).has.text("George R.R. Martin");
+  it("input derived", async () => {
+    await render(InputDerived, { value: 1 });
+    expect(screen.getByText("1 x 2 = 2")).to.exist;
   });
 
-  it("declares an expression based on input", async () => {
-    const { container } = await render(inputExpression, { value: 3 });
-    expect(container).has.text("3 x 2 = 6");
+  it("state derived", async () => {
+    await render(StateDerived, { value: 1 });
+    expect(screen.getByText("1 x 2 = 2")).to.exist;
+  });
+
+  it("error mutation", async () => {
+    await expect(render(ErrorMutation)).to.be.rejectedWith(
+      "Cannot add property fullName"
+    );
   });
 });
