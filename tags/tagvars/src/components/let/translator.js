@@ -1,4 +1,4 @@
-const getClosestMeta = require("../../util/get-closest-meta");
+const lifecycle = require("../../global/transformers/lifecycle");
 const deepFreeze = require("../../util/deep-freeze/transform");
 
 module.exports = function translate(tag, t) {
@@ -28,7 +28,7 @@ module.exports = function translate(tag, t) {
   } else {
     file.path.scope.crawl();
 
-    const meta = getClosestMeta(tag);
+    const meta = lifecycle.closest(tag);
     const binding = tag.scope.getBinding(tagVar.name);
 
     binding.constantViolations.forEach((assignment) => {
@@ -62,10 +62,7 @@ module.exports = function translate(tag, t) {
     });
 
     const stateVar = t.variableDeclaration("var", [
-      t.variableDeclarator(
-        tagVar,
-        t.stringLiteral("" + meta.extra.___stateIndex++)
-      ),
+      t.variableDeclarator(tagVar, t.stringLiteral("" + meta.stateIndex++)),
     ]);
 
     if (!defaultAttr) {

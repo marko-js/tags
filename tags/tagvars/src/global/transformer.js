@@ -1,11 +1,25 @@
+const { isNativeTag } = require("@marko/babel-utils");
+const { types: t } = require("@marko/compiler");
+const lifecycle = require("../global/transformers/lifecycle");
+const nativeTagVar = require("./transformers/native-tag-var");
 const nativeEventHandlers = require("./transformers/native-event-handlers");
-const tagVar = require("./transformers/tag-var");
+const checkDeprecations = require("./transformers/check-deprecations");
+const visited = new WeakSet();
 
-module.exports = (tag, t) => {
-  if (!tag.hub) {
-    throw new Error("The `Tags API` preview is only supported in Marko 5");
-  }
+module.exports = {
+  Program: lifecycle.visitor.Program,
+  MarkoTag(tag) {
+    if (!visited.has(tag.node)) {
+      visited.add(tag.node);
+      checkDeprecations(tag);
+      lifecycle.visitor.MarkoTag(tag);
 
-  nativeEventHandlers(tag, t);
-  tagVar(tag, t);
+      if (isNativeTag(tag)) {
+        nativeEventHandlers(tag, t);
+        nativeTagVar(tag, t);
+      } else {
+        // TODO: transform custom tag var.
+      }
+    }
+  },
 };

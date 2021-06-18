@@ -1,6 +1,5 @@
 const { getTagDef, isNativeTag } = require("@marko/babel-utils");
 const { taglibId } = require("../../../marko.json");
-const ensureLifecycle = require("../../util/ensure-lifecycle");
 const depsVisitor = {
   ReferencedIdentifier(identifier, deps) {
     const { name } = identifier.node;
@@ -104,8 +103,6 @@ module.exports = function transform(tag, t) {
       )
     );
   }
-
-  ensureLifecycle(tag);
 };
 
 function trackInputReference(identifier, accessor, accessors) {
