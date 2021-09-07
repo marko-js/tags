@@ -88,7 +88,7 @@ This method avoids namespace collisions without all of the additional boilerplat
 
 If for some reason the provider component cannot be discovered through the normal component discovery method, you can `import` the component manually and pass the constructor as the `from` attribute.
 
-```
+```marko
 import Router from "../../some-strange-path/template.marko";
 
 <context|data| from=Router>
