@@ -32,6 +32,8 @@
   render content somewhere else in the DOM.
 - [subscribe](https://github.com/marko-js/tags/blob/master/tags/subscribe) -
   declarative event subscriptions component.
+- [destroy-when-detached](https://github.com/marko-js/tags/blob/master/tags/destroy-when-detached) -
+  Automatically clean up all Marko components within a container when it is removed from the DOM.
 
 ## Contributing
 

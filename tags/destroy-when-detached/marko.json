@@ -1,0 +1,5 @@
+{
+  "<destroy-when-detached>": {
+    "template": "./index.marko"
+  }
+}
