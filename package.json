@@ -11,7 +11,7 @@
     "chai": "^4.2.0",
     "chai-dom": "^1.8.2",
     "cheerio": "^1.0.0-rc.5",
-    "chromedriver": "^88.0.0",
+    "chromedriver": "^102.0.0",
     "codecov": "^3.8.1",
     "cross-env": "^7.0.3",
     "husky": "^4.3.8",
