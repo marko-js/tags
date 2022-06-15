@@ -10,7 +10,7 @@ if (!customElements.get(name)) {
     name,
     class extends HTMLElement {
       disconnectedCallback() {
-        this._whenDetached();
+        if (!this.isConnected) this._whenDetached();
       }
     }
   );
