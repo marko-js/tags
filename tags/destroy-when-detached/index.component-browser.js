@@ -1,4 +1,3 @@
-const Empty = require("./empty.marko");
 const name = "marko-destroy-when-detached";
 if (!customElements.get(name)) {
   // We use a custom element so that we can reliably track when this container is removed from the DOM.
@@ -16,19 +15,8 @@ if (!customElements.get(name)) {
   );
 }
 
-/**
- * To force Marko to run through it's cleanup lifecycle
- * we replace the existing content with an empty Marko template.
- * Internally this will cause all existing elements being replaced to be destroyed.
- *
- * Finally we destroy the empty template we created as well to leave no nodes in the dom.
- */
-function destroy() {
-  (Empty.default || Empty).renderSync().replace(this).getComponent().destroy();
-}
-
 module.exports = {
   onMount() {
-    this.el._whenDetached = destroy;
+    this.el._whenDetached = () => this.destroy();
   },
 };
