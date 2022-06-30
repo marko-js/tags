@@ -5,9 +5,8 @@
   "author": "Dylan Piercey <dpiercey@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [
-    "empty.marko",
     "index.marko",
-    "index.component-browser.js",
+    "components",
     "marko.json"
   ],
   "homepage": "https://github.com/marko-js/tags/tree/master/tags/destroy-when-detached",
