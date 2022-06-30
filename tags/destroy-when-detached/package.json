@@ -1,7 +1,7 @@
 {
   "name": "@marko-tags/destroy-when-detached",
   "description": "Automatically clean up all Marko components within a container when it is removed.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Dylan Piercey <dpiercey@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [

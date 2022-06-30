@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/marko-js/tags/compare/@marko-tags/destroy-when-detached@0.1.3...@marko-tags/destroy-when-detached@0.1.4) (2022-06-30)
+
+
+### Bug Fixes
+
+* **destroy-when-detached:** add missing npm pkg files ([678809b](https://github.com/marko-js/tags/commit/678809bc969020aac2e1f7185feac5aa4b2bf711))
+
+
+
+
+
 ## [0.1.3](https://github.com/marko-js/tags/compare/@marko-tags/destroy-when-detached@0.1.2...@marko-tags/destroy-when-detached@0.1.3) (2022-06-30)
 
 
