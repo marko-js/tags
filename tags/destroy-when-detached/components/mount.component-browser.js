@@ -17,6 +17,6 @@ if (!customElements.get(name)) {
 
 module.exports = {
   onMount() {
-    this.el._whenDetached = () => this.destroy();
+    this.el.parentNode._whenDetached = () => this.destroy();
   },
 };
