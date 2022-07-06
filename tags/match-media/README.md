@@ -38,6 +38,7 @@ npm install @marko-tags/match-media
 >
   <if(mobile)>
     <!-- Mobile version -->
+  </if>
   <else-if(tablet)>
     <!-- Tablet version -->
   </else-if>
