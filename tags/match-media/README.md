@@ -36,7 +36,6 @@ npm install @marko-tags/match-media
   tablet="(min-width: 768px) and (max-width: 1024px)"
   desktop="(min-width: 1025px)"
 >
-
   <if(mobile)>
     <!-- Mobile version -->
   </if>
@@ -49,7 +48,6 @@ npm install @marko-tags/match-media
   <else>
     <!-- Handle server side render (no media queries match) -->
   </else>
-
 </match-media>
 ```
 
