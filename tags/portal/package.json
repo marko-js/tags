@@ -1,7 +1,7 @@
 {
   "name": "@marko-tags/portal",
   "description": "A Portal Component for Marko.js. A typical use case for portals is in dialogs, 'hovercards', and tooltips.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [
     "index.marko",

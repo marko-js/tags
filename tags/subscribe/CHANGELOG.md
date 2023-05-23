@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.4](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.4.3...@marko-tags/subscribe@0.4.4) (2023-05-23)
+
+**Note:** Version bump only for package @marko-tags/subscribe
+
+
+
+
+
 ## [0.4.3](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.4.2...@marko-tags/subscribe@0.4.3) (2021-03-10)
 
 

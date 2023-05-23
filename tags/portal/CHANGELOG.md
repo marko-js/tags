@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/marko-js/tags/compare/@marko-tags/portal@1.2.1...@marko-tags/portal@1.2.2) (2023-05-23)
+
+
+### Bug Fixes
+
+* **portal:** vite support ([#70](https://github.com/marko-js/tags/issues/70)) ([db910b3](https://github.com/marko-js/tags/commit/db910b381ee937dd881ea26be02d854d3dcd8a89))
+
+
+
+
+
 ## [1.2.1](https://github.com/marko-js/tags/compare/@marko-tags/portal@1.2.0...@marko-tags/portal@1.2.1) (2021-02-23)
 
 
