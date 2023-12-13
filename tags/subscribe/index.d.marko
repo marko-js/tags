@@ -1,4 +1,4 @@
 export interface Input {
   to: unknown,
-  [event: `on${string}`]: (...args: unknown[]) => void
+  [event: `on${string}`]: (...args: any[]) => void
 }
