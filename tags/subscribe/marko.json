@@ -1,6 +1,7 @@
 {
   "<subscribe>": {
     "template": "./index.marko",
-    "transformer": "./transformer.js"
+    "transformer": "./transformer.js",
+    "types": "./index.d.marko"
   }
 }
