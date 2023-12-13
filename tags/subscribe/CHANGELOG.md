@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.4.4...@marko-tags/subscribe@0.5.0) (2023-12-13)
+
+
+### Bug Fixes
+
+* **subscribe:** update lock file ([143fec9](https://github.com/marko-js/tags/commit/143fec9c406de3af03bf9bd4b7b2de783b097f93))
+
+
+### Features
+
+* **subscribe:** types ([#72](https://github.com/marko-js/tags/issues/72)) ([c60b5fc](https://github.com/marko-js/tags/commit/c60b5fcef4600a6ff06e4166eebb20cb0ed23815))
+
+
+
+
+
 ## [0.4.4](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.4.3...@marko-tags/subscribe@0.4.4) (2023-05-23)
 
 **Note:** Version bump only for package @marko-tags/subscribe
