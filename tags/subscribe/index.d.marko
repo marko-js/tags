@@ -1,0 +1,4 @@
+export interface Input {
+  to: unknown,
+  [event: `on${string}`]: (...args: unknown[]) => void
+}
