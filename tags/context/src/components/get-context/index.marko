@@ -3,7 +3,6 @@ import { getProvider } from '../../helpers'
 class {
   sync(state) {
     this.setState(state);
-    this.update();
   }
   onCreate() {
     this.sync = this.sync.bind(this);
