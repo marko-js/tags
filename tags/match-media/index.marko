@@ -8,7 +8,7 @@ class {
   }
 
   onRender() {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !window.matchMedia) return;
 
     var component = this;
     var matches = this.matches;
