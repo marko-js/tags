@@ -5,6 +5,7 @@
   "author": "Dylan Piercey <dpiercey@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [
+    "index.d.marko",
     "index.marko",
     "marko.json"
   ],
