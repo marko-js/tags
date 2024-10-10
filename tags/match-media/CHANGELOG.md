@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.2.1...@marko-tags/match-media@1.3.0) (2024-10-10)
+
+
+### Bug Fixes
+
+* don't run match-media if it doesn't exist ([#74](https://github.com/marko-js/tags/issues/74)) ([1119809](https://github.com/marko-js/tags/commit/1119809a327f5df1862930d2c238ca7b9c29637d))
+
+
+### Features
+
+* **match-media:** add type definitions ([#75](https://github.com/marko-js/tags/issues/75)) ([367faef](https://github.com/marko-js/tags/commit/367faef7158cb5462dd621f041320ca2c11dabf7))
+
+
+
+
+
 ## [1.2.1](https://github.com/marko-js/tags/compare/@marko-tags/match-media@1.2.0...@marko-tags/match-media@1.2.1) (2021-03-02)
 
 
