@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.4](https://github.com/marko-js/tags/compare/@marko-tags/context@2.2.3...@marko-tags/context@2.2.4) (2024-10-29)
+
+
+### Bug Fixes
+
+* **context:** add types for context tag ([0f12358](https://github.com/marko-js/tags/commit/0f12358e2978b018861cd473cfc780e64287264c))
+
+
+
+
+
 ## [2.2.3](https://github.com/marko-js/tags/compare/@marko-tags/context@2.2.2...@marko-tags/context@2.2.3) (2024-03-06)
 
 
