@@ -1,0 +1,9 @@
+export type Input = {
+  from: string | Marko.Template;
+  renderBody: Marko.Body<[context: unknown, emit: Marko.Component["emit"]]>;
+  [x: PropertyKey]: unknown;
+} | {
+  from?: false;
+  renderBody?: Marko.Body<[]>;
+  [x: PropertyKey]: unknown;
+}
