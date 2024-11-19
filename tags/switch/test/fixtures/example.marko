@@ -1,0 +1,13 @@
+<if(input.entity)>
+  <switch by=input.entity>
+    <@case is="Andromeda">
+      <span>Galaxy</span>
+    </@case>
+    <@case is=["Earth", "Mars"]>
+      <span>Planet</span>
+    </@case>
+    <@default>
+      <span>Star: ${input.entity}</span>
+    </@default>
+  </switch>
+</if>
