@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.5.1...@marko-tags/subscribe@0.5.2) (2025-01-03)
+
+
+### Bug Fixes
+
+* **subscribe:** give up on types ([e5a8fa9](https://github.com/marko-js/tags/commit/e5a8fa9aaf1e4ddaf6dcf59c87fd62da39fa3534))
+
+
+
+
+
 ## [0.5.1](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.5.0...@marko-tags/subscribe@0.5.1) (2023-12-13)
 
 
