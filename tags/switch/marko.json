@@ -1,0 +1,8 @@
+{
+  "<switch>": {
+    "template": "./index.marko",
+    "attributes": {
+      "by": "expression"
+    }
+  }
+}

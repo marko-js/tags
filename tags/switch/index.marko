@@ -1,0 +1,21 @@
+$ let validCases = [];
+<for|_case, index| of=input.case>
+  <!-- Validate string or array case value -->
+  <if(
+    _case.is == input.by ||
+    (Array.isArray(_case.is) && _case.is.includes(input.by))
+  )>
+    $ {
+      Array.isArray(_case.is)
+            ? // Array case value: Merge with valid cases
+              (validCases = [...new Set([...validCases, ..._case.is])])
+            : // String case value
+              validCases.push(_case.is);
+    }
+    <${_case.renderBody} key=`switch-${index}`/>
+  </if>
+</for>
+<!-- Default case -->
+<if(input.default && !validCases.includes(input.by))>
+  <${input.default.renderBody} key="switch-default"/>
+</if>
