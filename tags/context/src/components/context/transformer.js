@@ -10,7 +10,13 @@ module.exports = function transform(a, b) {
  */
 function transformMarko5(tag, t) {
   const file = tag.hub.file;
-  const utils = require("@marko/babel-utils");
+  const utils = (() => {
+    try {
+      return require("@marko/compiler/babel-utils");
+    } catch (_err) {
+      return require("@marko/babel-utils");
+    }
+  })();
 
   if (tag.get("body").get("params").length) {
     // Receive context tag.
