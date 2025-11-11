@@ -1,7 +1,7 @@
 {
   "name": "@marko-tags/subscribe",
   "description": "Add and remove event subscriptions within your template.",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Dylan Piercey <dpiercey@ebay.com>",
   "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
   "files": [

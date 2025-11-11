@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.5.1...@marko-tags/subscribe@0.5.2) (2025-11-11)
+
+
+### Bug Fixes
+
+* **subscribe:** TypeScript limitation ([b9c9a66](https://github.com/marko-js/tags/commit/b9c9a665adcfdc85b25274856c0d66f0227381f4))
+
+
+
+
+
 ## [0.5.1](https://github.com/marko-js/tags/compare/@marko-tags/subscribe@0.5.0...@marko-tags/subscribe@0.5.1) (2023-12-13)
 
 
